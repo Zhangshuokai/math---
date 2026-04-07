@@ -1,0 +1,15 @@
+export const COLORS = {
+  background: "#1a1a2e",
+  axis: "#888888",
+  grid: "#333355",
+  primaryCurve: "#61dafb",
+  secondaryCurve: "#ff79c6",
+  tertiaryCurve: "#50fa7b",
+  integralArea: "rgba(97, 218, 251, 0.25)",
+  vector: "#ffd700",
+  highlight: "#ff6b6b",
+  formula: "#ffffff",
+  annotation: "#f8f8f2",
+  theoremBg: "rgba(97, 218, 251, 0.1)",
+  theoremBorder: "#61dafb",
+} as const;
