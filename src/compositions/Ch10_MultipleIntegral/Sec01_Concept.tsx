@@ -5,6 +5,7 @@ import { TitleCard } from "../../components/ui/TitleCard";
 import { MathFormula } from "../../components/math/MathFormula";
 import { CoordinateSystem, useCoordContext } from "../../components/math/CoordinateSystem";
 import { TheoremBox } from "../../components/ui/TheoremBox";
+import { IntegralArea } from "../../components/math/IntegralArea";
 
 const fade = (frame: number, start: number, duration = 30) =>
   interpolate(frame, [start, start + duration], [0, 1], {
@@ -138,6 +139,13 @@ const Sec01Concept: React.FC = () => {
             yRange={[-0.3, 2.5]}
             opacity={s2CoordOp}
           >
+            <IntegralArea
+              fn={x => x * x}
+              a={0}
+              b={2}
+              fillColor={COLORS.primaryCurve + '66'}
+              fillProgress={barsProgress}
+            />
             <RegionD opacity={s2CoordOp} />
             <RiemannBars progress={barsProgress} opacity={s2CoordOp} />
           </CoordinateSystem>

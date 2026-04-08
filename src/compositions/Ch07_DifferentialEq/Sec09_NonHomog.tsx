@@ -73,7 +73,7 @@ const Sec09NonHomog: React.FC = () => {
           chapterNum="七"
           chapterTitle="微分方程"
           sectionNum="7.9"
-          sectionTitle="常系数非齐次线性方程"
+          sectionTitle="常系数非齐次线性微分方程"
           opacity={titleOpacity}
         />
       )}
@@ -301,7 +301,7 @@ const Sec09NonHomog: React.FC = () => {
             />
           </div>
 
-          <TheoremBox title="常系数非齐次线性方程" opacity={summaryOpacity} width={960}>
+          <TheoremBox title="常系数非齐次线性微分方程" opacity={summaryOpacity} width={960}>
             <div style={{ fontSize: 25, lineHeight: 2.1, color: COLORS.formula }}>
               <div>
                 •{" "}

@@ -99,7 +99,7 @@ const Sec02Separable: React.FC = () => {
             }}
           >
             <MathFormula
-              latex="\frac{dy}{dx} = 2xy"
+              latex="\frac{\mathrm{d}y}{\mathrm{d}x} = 2xy"
               fontSize={72}
               color={COLORS.formula}
             />
@@ -182,7 +182,7 @@ const Sec02Separable: React.FC = () => {
                 分离变量
               </div>
               <MathFormula
-                latex="\frac{dy}{y} = 2x\,dx"
+                latex="\frac{\mathrm{d}y}{y} = 2x\,\mathrm{d}x"
                 fontSize={40}
                 color={COLORS.formula}
               />
@@ -223,7 +223,7 @@ const Sec02Separable: React.FC = () => {
                 两边积分
               </div>
               <MathFormula
-                latex="\int \frac{dy}{y} = \int 2x\,dx"
+                latex="\int \frac{\mathrm{d}y}{y} = \int 2x\,\mathrm{d}x"
                 fontSize={40}
                 color={COLORS.formula}
               />

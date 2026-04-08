@@ -1,5 +1,7 @@
-import React, { useRef, useEffect } from "react";
+import React from "react";
 import katex from "katex";
+// KaTeX CSS 必须引入，否则下标/上标/分数等定位全部失效
+import "katex/dist/katex.min.css";
 
 export interface MathFormulaProps {
   latex: string;
@@ -18,22 +20,24 @@ export const MathFormula: React.FC<MathFormulaProps> = ({
   opacity = 1,
   style,
 }) => {
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (ref.current) {
-      katex.render(latex, ref.current, {
-        displayMode,
-        throwOnError: false,
-        output: "html",
-        trust: true,
-      });
-    }
-  }, [latex, displayMode]);
+  // 同步渲染：Remotion 服务端按帧渲染时不执行 useEffect，
+  // 必须使用 renderToString + dangerouslySetInnerHTML 才能正确显示公式。
+  let html = "";
+  try {
+    html = katex.renderToString(latex, {
+      displayMode,
+      throwOnError: false,
+      output: "html",
+      trust: true,
+    });
+  } catch {
+    html = latex;
+  }
 
   return (
     <div
-      ref={ref}
+      // eslint-disable-next-line react/no-danger
+      dangerouslySetInnerHTML={{ __html: html }}
       style={{
         color,
         fontSize,

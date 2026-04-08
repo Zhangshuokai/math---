@@ -52,6 +52,52 @@ const UpperSemicircle: React.FC<{ progress?: number; opacity?: number }> = ({ pr
   );
 };
 
+// WorkPathLine：在 CoordinateSystem 内渲染带进度的路径线段
+interface WorkPathLineProps {
+  points: Array<[number, number]>;
+  progress?: number;  // 0~1
+  opacity?: number;
+  color?: string;
+  strokeWidth?: number;
+  showArrow?: boolean;
+}
+
+const WorkPathLine: React.FC<WorkPathLineProps> = ({
+  points,
+  progress = 1,
+  opacity = 1,
+  color = '#F59E0B',
+  strokeWidth = 3,
+  showArrow = true,
+}) => {
+  const { toPixel } = useCoordContext();
+  const visibleCount = Math.max(2, Math.floor(points.length * progress));
+  const visiblePoints = points.slice(0, visibleCount);
+  const pixelPoints = visiblePoints.map(([mx, my]) => {
+    const { px, py } = toPixel(mx, my);
+    return [px, py] as [number, number];
+  });
+  const d = pixelPoints
+    .map(([px, py], i) => `${i === 0 ? 'M' : 'L'} ${px} ${py}`)
+    .join(' ');
+  const last = pixelPoints[pixelPoints.length - 1];
+  const prev = pixelPoints[pixelPoints.length - 2] ?? last;
+  const angle = Math.atan2(last[1] - prev[1], last[0] - prev[0]) * (180 / Math.PI);
+  return (
+    <>
+      <path d={d} stroke={color} strokeWidth={strokeWidth} fill="none" opacity={opacity} />
+      {showArrow && progress > 0.05 && (
+        <polygon
+          points="-8,-5 8,0 -8,5"
+          transform={`translate(${last[0]}, ${last[1]}) rotate(${angle})`}
+          fill={color}
+          opacity={opacity}
+        />
+      )}
+    </>
+  );
+};
+
 const Sec02Line2: React.FC = () => {
   const frame = useCurrentFrame();
 
@@ -121,18 +167,20 @@ const Sec02Line2: React.FC = () => {
               opacity={s2FieldOp * 0.7}
             />
             {/* 路径：从 (-1,-0.5) 到 (1,0.5) */}
-            {s2PathOp > 0.3 && (() => {
-              const N = 40;
-              const pts: string[] = [];
-              for (let i = 0; i <= N; i++) {
-                const t = i / N;
-                const x = -1 + 2 * t;
-                const y = -0.5 + t;
-                // We need context here but can't use hook inside function
-                // Just skip the path for now since we can't access context
-                void x; void y;
-              }
-              return null;
+            {s2PathOp > 0 && (() => {
+              const N = 20;
+              const pathPts: Array<[number, number]> = Array.from({ length: N + 1 }, (_, i) => {
+                const tt = i / N;
+                return [-1 + 2 * tt, -0.5 + tt] as [number, number];
+              });
+              return (
+                <WorkPathLine
+                  points={pathPts}
+                  progress={Math.min(1, s2PathOp / 0.7)}
+                  opacity={s2PathOp}
+                  color="#F59E0B"
+                />
+              );
             })()}
           </CoordinateSystem>
           <div style={{ opacity: s2Formula }}>

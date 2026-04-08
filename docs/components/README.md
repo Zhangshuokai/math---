@@ -115,26 +115,66 @@ return <FunctionPlot fn={Math.sin} drawProgress={drawProgress} />;
 
 ---
 
+## 工具函数模块
+
+| 文件 | 说明 |
+|------|------|
+| [`src/utils/mathUtils.ts`](../../src/utils/mathUtils.ts) | 数学计算工具：`generateFunctionPath()`、`clamp()`、`lerp()` |
+| [`src/utils/pathUtils.ts`](../../src/utils/pathUtils.ts) | 坐标变换工厂：`createCoordinateTransform()` |
+| [`src/utils/animationUtils.ts`](../../src/utils/animationUtils.ts) | **（2026-04-08 新增）** 公共动画辅助函数，供所有 Composition 共享 |
+
+### `animationUtils.ts` 函数一览
+
+> 文件路径：[`src/utils/animationUtils.ts`](../../src/utils/animationUtils.ts)  
+> 用途：消除各 Composition 文件中重复定义的动画辅助函数，统一维护
+
+| 函数 | 签名 | 说明 |
+|------|------|------|
+| [`fade()`](../../src/utils/animationUtils.ts) | `(frame, startFrame, endFrame) => number` | 基础淡入淡出，将帧号映射为 [0,1] 透明度，带双端 clamp |
+| [`lerp()`](../../src/utils/animationUtils.ts) | `(a, b, t) => number` | 线性插值，`t=0` 返回 `a`，`t=1` 返回 `b` |
+| [`isVisible()`](../../src/utils/animationUtils.ts) | `(frame, startFrame, endFrame) => boolean` | 判断当前帧是否在指定区间内 |
+| [`stepOpacity()`](../../src/utils/animationUtils.ts) | `(progress, stepIndex, totalSteps) => number` | 按步骤数均分进度，返回指定步骤的透明度 |
+| [`springFade()`](../../src/utils/animationUtils.ts) | `(frame, startFrame, duration) => number` | 带阻尼感的弹簧淡入（模拟轻微过冲缓动） |
+
+```typescript
+// 导入示例
+import { fade, lerp, isVisible, stepOpacity, springFade } from "../../utils/animationUtils";
+
+// 典型用法
+const titleOpacity = fade(frame, 0, 30);          // 第0~30帧淡入
+const pos = lerp(startX, endX, progress);          // 位置插值
+const show = isVisible(frame, 60, 180);            // 第60~180帧可见
+const step2Alpha = stepOpacity(progress, 1, 3);   // 三步推导中第2步的透明度
+const heroOpacity = springFade(frame, 30, 45);    // 带弹簧感的淡入
+```
+
+---
+
 ## 文件位置速查
 
 ```
-src/components/
-├── base/
-│   ├── MathFormula.tsx
-│   ├── CoordinateSystem.tsx
-│   ├── CoordinateSystem3D.tsx
-│   ├── FunctionPlot.tsx
-│   ├── IntegralArea.tsx
-│   ├── Arrow.tsx
-│   ├── Vector3D.tsx
-│   └── VectorField.tsx
-├── layout/
-│   ├── TitleCard.tsx
-│   ├── TheoremBox.tsx
-│   └── StepByStep.tsx
-└── special/
-    ├── FourierSeries.tsx
-    ├── SurfaceIntegral.tsx
-    ├── DiffEqSolution.tsx
-    └── PartialDerivative.tsx
+src/
+├── utils/
+│   ├── mathUtils.ts          # 数学计算工具
+│   ├── pathUtils.ts          # 坐标变换工厂
+│   └── animationUtils.ts     # 公共动画辅助函数（2026-04-08 新增）
+└── components/
+    ├── base/
+    │   ├── MathFormula.tsx
+    │   ├── CoordinateSystem.tsx
+    │   ├── CoordinateSystem3D.tsx
+    │   ├── FunctionPlot.tsx
+    │   ├── IntegralArea.tsx      # 已在 Ch10/Sec01、Ch10/Sec04 中使用
+    │   ├── Arrow.tsx
+    │   ├── Vector3D.tsx
+    │   └── VectorField.tsx
+    ├── layout/
+    │   ├── TitleCard.tsx
+    │   ├── TheoremBox.tsx
+    │   └── StepByStep.tsx
+    └── special/
+        ├── FourierSeries.tsx
+        ├── SurfaceIntegral.tsx
+        ├── DiffEqSolution.tsx
+        └── PartialDerivative.tsx
 ```

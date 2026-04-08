@@ -249,7 +249,7 @@ const Sec08Extremum: React.FC = () => {
               border: `2px solid ${COLORS.highlight}`,
               borderRadius: 6,
             }}>
-              驻点（稳定点）
+              驻点
             </div>
           </div>
 

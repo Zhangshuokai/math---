@@ -5,6 +5,7 @@ import { TitleCard } from "../../components/ui/TitleCard";
 import { MathFormula } from "../../components/math/MathFormula";
 import { CoordinateSystem, useCoordContext } from "../../components/math/CoordinateSystem";
 import { TheoremBox } from "../../components/ui/TheoremBox";
+import { IntegralArea } from "../../components/math/IntegralArea";
 
 const fade = (frame: number, start: number, duration = 30) =>
   interpolate(frame, [start, start + duration], [0, 1], {
@@ -56,6 +57,7 @@ const Sec04Apps: React.FC = () => {
   const s3CoordOp = fade(frame, 195, 20);
   const s3Centroid = fade(frame, 230, 20);
   const s3Formula = fade(frame, 262, 20);
+  const s3FillProgress = interpolate(frame, [200, 270], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
 
   // Scene 4: 转动惯量
   const s4Title = fade(frame, 300, 20);
@@ -113,6 +115,13 @@ const Sec04Apps: React.FC = () => {
             opacity={s3CoordOp}
           >
             <ThinPlate opacity={s3CoordOp} showCentroid={s3Centroid > 0.5} />
+            <IntegralArea
+              fn={x => Math.sqrt(Math.max(0, 1 - (x - 1) * (x - 1)))}
+              a={0}
+              b={2}
+              fillColor={COLORS.primaryCurve + '55'}
+              fillProgress={s3FillProgress}
+            />
           </CoordinateSystem>
           <div style={{ opacity: s3Formula }}>
             <MathFormula

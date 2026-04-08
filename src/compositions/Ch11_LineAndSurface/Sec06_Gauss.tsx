@@ -150,7 +150,7 @@ const Sec06Gauss: React.FC = () => {
           </div>
           <div style={{ opacity: s3DivFormula }}>
             <MathFormula
-              latex="\mathrm{div}\,\mathbf{F} = \frac{\partial P}{\partial x}+\frac{\partial Q}{\partial y}+\frac{\partial R}{\partial z}"
+              latex="\nabla\cdot\vec{F} = \frac{\partial P}{\partial x}+\frac{\partial Q}{\partial y}+\frac{\partial R}{\partial z}"
               fontSize={34}
               color={COLORS.vector}
             />

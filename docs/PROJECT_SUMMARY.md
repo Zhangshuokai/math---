@@ -811,3 +811,42 @@ npm install --save-dev jest @types/jest ts-jest
 ---
 
 *文档生成时间：2026-04-07 | 项目版本：v1.0.0*
+
+---
+
+## 最近更新（2026-04-08）
+
+> 详细内容请参阅：[开发会话总结文档（2026-04-08）](./SESSION_SUMMARY_20260408.md)
+
+### 本次会话改进
+
+1. **创建公共动画工具模块 [`src/utils/animationUtils.ts`](../src/utils/animationUtils.ts)**  
+   提取 41 个动画文件中各自重复定义的 `fade()` 函数，统一至公共模块；新增 [`lerp()`](../src/utils/animationUtils.ts)、[`isVisible()`](../src/utils/animationUtils.ts)、[`stepOpacity()`](../src/utils/animationUtils.ts)、[`springFade()`](../src/utils/animationUtils.ts) 等 4 个公共动画辅助函数，消除技术债务。
+
+2. **增强 Ch07 微分方程 4 个薄弱节**  
+   [`Sec03_Homogeneous.tsx`](../src/compositions/Ch07_DifferentialEq/Sec03_Homogeneous.tsx)（添加换元推导动画 + 解族曲线可视化）、[`Sec05_Exact.tsx`](../src/compositions/Ch07_DifferentialEq/Sec05_Exact.tsx)（添加势函数等值线同心圆族）、[`Sec06_HighOrder.tsx`](../src/compositions/Ch07_DifferentialEq/Sec06_HighOrder.tsx)（逐次积分动画 + 解族曲线对比）、[`Sec07_Linear2.tsx`](../src/compositions/Ch07_DifferentialEq/Sec07_Linear2.tsx)（简谐振动三曲线叠加）——每节从 **~300帧/3场景 → ~480帧/5场景**。
+
+3. **增强 Ch08 和 Ch09 共 5 个薄弱节**  
+   [`Ch08/Sec03_Surfaces.tsx`](../src/compositions/Ch08_VectorGeometry/Sec03_Surfaces.tsx)（球面截圆、柱面截面族、二次曲面 XY 投影）；[`Ch09/Sec01_Concept.tsx`](../src/compositions/Ch09_MultiVariable/Sec01_Concept.tsx)（定义域圆区域 + 极限方向箭头 + 等值线）、[`Ch09/Sec03_Total.tsx`](../src/compositions/Ch09_MultiVariable/Sec03_Total.tsx)（Δx/Δy 增量箭头 + 截线对比）、[`Ch09/Sec05_Implicit.tsx`](../src/compositions/Ch09_MultiVariable/Sec05_Implicit.tsx)（圆曲线 + 切点/切线/斜率标注）、[`Ch09/Sec06_Geometry.tsx`](../src/compositions/Ch09_MultiVariable/Sec06_Geometry.tsx)（梯度向量场 + 半球切平面/法线）。
+
+4. **增强 Ch11 和 Ch12 共 3 个薄弱节**  
+   [`Ch11/Sec04_Surface1.tsx`](../src/compositions/Ch11_LineAndSurface/Sec04_Surface1.tsx)（椭圆区域网格分割 + 球面体积示意）、[`Ch11/Sec05_Surface2.tsx`](../src/compositions/Ch11_LineAndSurface/Sec05_Surface2.tsx)（曲面法向量场 + 方向选取规则）、[`Ch12/Sec05_Apps.tsx`](../src/compositions/Ch12_Series/Sec05_Apps.tsx)（泰勒多项式逼近 + 欧拉公式单位圆）。
+
+5. **修复 `IntegralArea` 组件零使用率问题**  
+   在 [`Ch10/Sec01_Concept.tsx`](../src/compositions/Ch10_MultipleIntegral/Sec01_Concept.tsx) 中集成 `IntegralArea` 展示 f(x)=x² 的黎曼和填充动画；在 [`Ch10/Sec04_Apps.tsx`](../src/compositions/Ch10_MultipleIntegral/Sec04_Apps.tsx) 中集成展示半圆截面积分。
+
+### 当前完成度
+
+| 章节 | 节数 | 更新前总帧数 | 更新后总帧数 | 完整动画节数（≥450帧） |
+|------|------|------------|------------|----------------------|
+| 第七章：微分方程 | 9 | 3,810 | 4,530 | 9 / 9（全部完整） |
+| 第八章：空间解析几何 | 6 | 2,550 | 2,730 | 5 / 6 |
+| 第九章：多元函数微分 | 8 | 3,060 | 3,780 | 8 / 8（全部完整） |
+| 第十章：重积分 | 4 | 2,040 | 2,040 | 4 / 4（含 IntegralArea 集成） |
+| 第十一章：曲线与曲面积分 | 7 | 3,060 | 3,420 | 7 / 7（全部完整） |
+| 第十二章：无穷级数 | 7 | 3,420 | 3,600 | 7 / 7（全部完整） |
+| **合计** | **41** | **17,940** | **20,100** | **40 / 41** |
+
+> 注：第八章 Sec04_Curves 仍为基础动画（300帧），为本次会话后唯一遗留的基础节。
+
+*文档更新时间：2026-04-08 | 项目版本：v1.1.0*

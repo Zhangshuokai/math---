@@ -174,7 +174,7 @@ const Sec03Power: React.FC = () => {
         <AbsoluteFill style={{ justifyContent: "center", alignItems: "center", padding: "0 80px" }}>
           <TheoremBox title="幂级数总结" opacity={s5Op} width={980}>
             <div style={{ fontSize: 22, lineHeight: 2.2, color: COLORS.formula }}>
-              <div>• <span style={{ color: COLORS.primaryCurve }}>收敛域</span>：(-R, R)，端点分别验证</div>
+              <div>• <span style={{ color: COLORS.primaryCurve }}>收敛区间</span>：(-R, R)；收敛域需验证端点</div>
               <div>• <span style={{ color: COLORS.vector }}>收敛半径</span>：R = lim|aₙ/aₙ₊₁|（或柯西-阿达马公式）</div>
               <div>• <span style={{ color: COLORS.secondaryCurve }}>分析性</span>：幂级数在收敛区间内可逐项微分、积分</div>
               <div>• <span style={{ color: COLORS.highlight }}>应用</span>：利用已知级数逐项求导/积分求新展开式</div>

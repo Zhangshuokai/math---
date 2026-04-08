@@ -131,7 +131,7 @@ const Sec07Gradient: React.FC = () => {
 
           <div style={{ opacity: s2Def }}>
             <MathFormula
-              latex="\frac{\partial f}{\partial \mathbf{l}} = \lim_{t \to 0^+} \frac{f(x+t\cos\alpha,\,y+t\cos\beta) - f(x,y)}{t}"
+              latex="\frac{\partial f}{\partial \vec{l}} = \lim_{t \to 0^+} \frac{f(x+t\cos\alpha,\,y+t\cos\beta) - f(x,y)}{t}"
               fontSize={36}
               color={COLORS.formula}
             />
@@ -150,7 +150,7 @@ const Sec07Gradient: React.FC = () => {
             backgroundColor: "rgba(255,107,107,0.08)",
           }}>
             <MathFormula
-              latex="\frac{\partial f}{\partial \mathbf{l}} = f_x \cos\alpha + f_y \cos\beta"
+              latex="\frac{\partial f}{\partial \vec{l}} = f_x \cos\alpha + f_y \cos\beta"
               fontSize={48}
               color={COLORS.formula}
             />
@@ -230,7 +230,7 @@ const Sec07Gradient: React.FC = () => {
           <div style={{ width: "100%", opacity: s4GradComp }}>
             <div style={{ color: COLORS.annotation, fontSize: 20, marginBottom: 6 }}>计算梯度各分量：</div>
             <MathFormula
-              latex="u_x = yz,\; u_y = xz,\; u_z = xy \;\Rightarrow\; \mathbf{grad}\,u\big|_{(1,1,1)} = (1,\,1,\,1)"
+              latex="u_x = yz,\; u_y = xz,\; u_z = xy \;\Rightarrow\; \nabla u\big|_{(1,1,1)} = (1,\,1,\,1)"
               fontSize={32}
               color={COLORS.primaryCurve}
             />
@@ -239,7 +239,7 @@ const Sec07Gradient: React.FC = () => {
           <div style={{ width: "100%", opacity: s4DirComp }}>
             <div style={{ color: COLORS.annotation, fontSize: 20, marginBottom: 6 }}>代入方向导数公式：</div>
             <MathFormula
-              latex="\frac{\partial u}{\partial \mathbf{l}} = 1\cdot\frac{1}{\sqrt{3}} + 1\cdot\frac{1}{\sqrt{3}} + 1\cdot\frac{1}{\sqrt{3}}"
+              latex="\frac{\partial u}{\partial \vec{l}} = 1\cdot\frac{1}{\sqrt{3}} + 1\cdot\frac{1}{\sqrt{3}} + 1\cdot\frac{1}{\sqrt{3}}"
               fontSize={36}
               color={COLORS.formula}
             />
@@ -252,7 +252,7 @@ const Sec07Gradient: React.FC = () => {
             borderRadius: 8,
           }}>
             <MathFormula
-              latex="\frac{\partial u}{\partial \mathbf{l}} = \frac{3}{\sqrt{3}} = \sqrt{3}"
+              latex="\frac{\partial u}{\partial \vec{l}} = \frac{3}{\sqrt{3}} = \sqrt{3}"
               fontSize={44}
               color={COLORS.highlight}
             />

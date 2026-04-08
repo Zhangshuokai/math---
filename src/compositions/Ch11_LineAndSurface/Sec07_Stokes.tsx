@@ -131,7 +131,7 @@ const Sec07Stokes: React.FC = () => {
           <div style={{ color: COLORS.secondaryCurve, fontSize: 26, opacity: s4Title }}>旋度的物理意义</div>
           <div style={{ opacity: s4Formula }}>
             <MathFormula
-              latex="\mathrm{curl}\,\mathbf{F} = \nabla\times\mathbf{F} = \begin{vmatrix}\mathbf{i}&\mathbf{j}&\mathbf{k}\\\frac{\partial}{\partial x}&\frac{\partial}{\partial y}&\frac{\partial}{\partial z}\\P&Q&R\end{vmatrix}"
+              latex="\nabla\times\vec{F} = \begin{vmatrix}\vec{i}&\vec{j}&\vec{k}\\\frac{\partial}{\partial x}&\frac{\partial}{\partial y}&\frac{\partial}{\partial z}\\P&Q&R\end{vmatrix}"
               fontSize={28}
               color={COLORS.formula}
             />

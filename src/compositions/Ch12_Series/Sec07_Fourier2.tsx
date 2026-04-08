@@ -107,7 +107,7 @@ const Sec07Fourier2: React.FC = () => {
           chapterNum="十二"
           chapterTitle="无穷级数"
           sectionNum="12.7"
-          sectionTitle="一般周期傅里叶级数"
+          sectionTitle="一般周期函数的傅里叶级数"
           opacity={s1Op}
         />
       )}

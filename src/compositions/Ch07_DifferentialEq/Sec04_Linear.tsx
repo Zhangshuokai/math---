@@ -174,7 +174,7 @@ const Sec04Linear: React.FC = () => {
                 乘以积分因子 μ(x) = e^(∫P dx)
               </div>
               <MathFormula
-                latex="\mu(x) = e^{\int P(x)\,dx}"
+                latex="\mu(x) = e^{\int P(x)\,\mathrm{d}x}"
                 fontSize={38}
                 color={COLORS.formula}
               />
@@ -185,10 +185,10 @@ const Sec04Linear: React.FC = () => {
             <div style={stepDot(COLORS.primaryCurve)}>2</div>
             <div>
               <div style={{ color: COLORS.annotation, fontSize: 20, marginBottom: 4 }}>
-                两边乘以 μ，左边变成完全导数
+                两边乘以 μ，左端恰好是乘积 y·μ(x) 的导数
               </div>
               <MathFormula
-                latex="\left(y\,e^{\int P\,dx}\right)' = Q(x)\,e^{\int P\,dx}"
+                latex="\left(y\,e^{\int P\,\mathrm{d}x}\right)' = Q(x)\,e^{\int P\,\mathrm{d}x}"
                 fontSize={38}
                 color={COLORS.formula}
               />
@@ -202,7 +202,7 @@ const Sec04Linear: React.FC = () => {
                 两边积分
               </div>
               <MathFormula
-                latex="y\,e^{\int P\,dx} = \int Q(x)\,e^{\int P\,dx}\,dx + C"
+                latex="y\,e^{\int P\,\mathrm{d}x} = \int Q(x)\,e^{\int P\,\mathrm{d}x}\,\mathrm{d}x + C"
                 fontSize={36}
                 color={COLORS.formula}
               />
@@ -224,7 +224,7 @@ const Sec04Linear: React.FC = () => {
             <div>
               <div style={{ color: COLORS.highlight, fontSize: 20, marginBottom: 4 }}>通解公式</div>
               <MathFormula
-                latex="y = e^{-\int P\,dx}\!\left[\int Q\,e^{\int P\,dx}\,dx + C\right]"
+                latex="y = e^{-\int P\,\mathrm{d}x}\!\left[\int Q\,e^{\int P\,\mathrm{d}x}\,\mathrm{d}x + C\right]"
                 fontSize={36}
                 color={COLORS.highlight}
               />
@@ -258,7 +258,7 @@ const Sec04Linear: React.FC = () => {
                 P(x) = 1，Q(x) = x
               </div>
               <MathFormula
-                latex="\mu = e^{\int 1\,dx} = e^x"
+                latex="\mu = e^{\int 1\,\mathrm{d}x} = e^x"
                 fontSize={38}
                 color={COLORS.formula}
               />
@@ -272,7 +272,7 @@ const Sec04Linear: React.FC = () => {
                 两边乘以 e^x，再积分
               </div>
               <MathFormula
-                latex="y e^x = \int x e^x\,dx = (x-1)e^x + C"
+                latex="y e^x = \int x e^x\,\mathrm{d}x = (x-1)e^x + C"
                 fontSize={36}
                 color={COLORS.formula}
               />
@@ -363,7 +363,7 @@ const Sec04Linear: React.FC = () => {
             padding: "0 120px",
           }}
         >
-          <TheoremBox title="一阶线性方程通解公式" opacity={summaryOpacity} width={960}>
+          <TheoremBox title="一阶线性微分方程通解公式" opacity={summaryOpacity} width={960}>
             <div style={{ fontSize: 26, lineHeight: 2.2, color: COLORS.formula }}>
               <div style={{ marginBottom: 12 }}>
                 方程{" "}
@@ -372,7 +372,7 @@ const Sec04Linear: React.FC = () => {
               </div>
               <div style={{ marginBottom: 20 }}>
                 <MathFormula
-                  latex="y = e^{-\int P\,dx}\left[\int Q\,e^{\int P\,dx}\,dx + C\right]"
+                  latex="y = e^{-\int P\,\mathrm{d}x}\left[\int Q\,e^{\int P\,\mathrm{d}x}\,\mathrm{d}x + C\right]"
                   fontSize={34}
                   color={COLORS.highlight}
                 />

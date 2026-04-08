@@ -147,7 +147,7 @@ const Sec02Products: React.FC = () => {
           }}
         >
           <div style={{ color: COLORS.primaryCurve, fontSize: 30, opacity: coord2Opacity, marginBottom: 4 }}>
-            数量积（点积）：a⃗·b⃗ = |a||b|cos θ
+            数量积：a⃗·b⃗ = |a||b|cos θ
           </div>
 
           <CoordinateSystem
@@ -205,7 +205,7 @@ const Sec02Products: React.FC = () => {
           }}
         >
           <div style={{ color: COLORS.secondaryCurve, fontSize: 32, opacity: crossTitle }}>
-            向量积（叉积）：a⃗ × b⃗
+            向量积：a⃗ × b⃗
           </div>
 
           <div style={{ opacity: crossDet }}>

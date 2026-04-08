@@ -90,7 +90,7 @@ const Sec02Tests: React.FC = () => {
           chapterNum="十二"
           chapterTitle="无穷级数"
           sectionNum="12.2"
-          sectionTitle="常数项级数审敛法"
+          sectionTitle="常数项级数的审敛法"
           opacity={s1Op}
         />
       )}

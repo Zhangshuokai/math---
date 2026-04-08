@@ -1,6 +1,15 @@
 import React from "react";
-import { Composition, AbsoluteFill } from "remotion";
+import { Composition, AbsoluteFill, Folder } from "remotion";
 import { VIDEO_CONFIG } from "./constants/videoConfig";
+import { withWatermark } from "./components/ui/Watermark";
+
+// 章节索引组件
+import Ch07Index from "./compositions/Ch07_DifferentialEq/index";
+import Ch08Index from "./compositions/Ch08_VectorGeometry/index";
+import Ch09Index from "./compositions/Ch09_MultiVariable/index";
+import Ch10Index from "./compositions/Ch10_MultipleIntegral/index";
+import Ch11Index from "./compositions/Ch11_LineAndSurface/index";
+import Ch12Index from "./compositions/Ch12_Series/index";
 
 // 第七章实装组件
 import Sec01Intro from "./compositions/Ch07_DifferentialEq/Sec01_Intro";
@@ -66,102 +75,180 @@ const PlaceholderComp: React.FC<{ title: string }> = ({ title }) => (
   </AbsoluteFill>
 );
 
+// 预创建带水印的组件（在模块顶层创建，保证引用稳定不重复渲染）
+const WCh07Index = withWatermark(Ch07Index);
+const WSec01Intro = withWatermark(Sec01Intro);
+const WSec02Separable = withWatermark(Sec02Separable);
+const WSec03Homogeneous = withWatermark(Sec03Homogeneous);
+const WSec04Linear = withWatermark(Sec04Linear);
+const WSec05Exact = withWatermark(Sec05Exact);
+const WSec06HighOrder = withWatermark(Sec06HighOrder);
+const WSec07Linear2 = withWatermark(Sec07Linear2);
+const WSec08ConstCoeff = withWatermark(Sec08ConstCoeff);
+const WSec09NonHomog = withWatermark(Sec09NonHomog);
+
+const WCh08Index = withWatermark(Ch08Index);
+const WCh08Sec01Vectors = withWatermark(Ch08Sec01Vectors);
+const WCh08Sec02Products = withWatermark(Ch08Sec02Products);
+const WCh08Sec03Surfaces = withWatermark(Ch08Sec03Surfaces);
+const WCh08Sec04Curves = withWatermark(Ch08Sec04Curves);
+const WCh08Sec05Plane = withWatermark(Ch08Sec05Plane);
+const WCh08Sec06Line = withWatermark(Ch08Sec06Line);
+
+const WCh09Index = withWatermark(Ch09Index);
+const WCh09Sec01Concept = withWatermark(Ch09Sec01Concept);
+const WCh09Sec02Partial = withWatermark(Ch09Sec02Partial);
+const WCh09Sec03Total = withWatermark(Ch09Sec03Total);
+const WCh09Sec04Chain = withWatermark(Ch09Sec04Chain);
+const WCh09Sec05Implicit = withWatermark(Ch09Sec05Implicit);
+const WCh09Sec06Geometry = withWatermark(Ch09Sec06Geometry);
+const WCh09Sec07Gradient = withWatermark(Ch09Sec07Gradient);
+const WCh09Sec08Extremum = withWatermark(Ch09Sec08Extremum);
+
+const WCh10Index = withWatermark(Ch10Index);
+const WCh10Sec01Concept = withWatermark(Ch10Sec01Concept);
+const WCh10Sec02Calc2D = withWatermark(Ch10Sec02Calc2D);
+const WCh10Sec03Triple = withWatermark(Ch10Sec03Triple);
+const WCh10Sec04Apps = withWatermark(Ch10Sec04Apps);
+
+const WCh11Index = withWatermark(Ch11Index);
+const WCh11Sec01Line1 = withWatermark(Ch11Sec01Line1);
+const WCh11Sec02Line2 = withWatermark(Ch11Sec02Line2);
+const WCh11Sec03Green = withWatermark(Ch11Sec03Green);
+const WCh11Sec04Surface1 = withWatermark(Ch11Sec04Surface1);
+const WCh11Sec05Surface2 = withWatermark(Ch11Sec05Surface2);
+const WCh11Sec06Gauss = withWatermark(Ch11Sec06Gauss);
+const WCh11Sec07Stokes = withWatermark(Ch11Sec07Stokes);
+
+const WCh12Index = withWatermark(Ch12Index);
+const WCh12Sec01Concept = withWatermark(Ch12Sec01Concept);
+const WCh12Sec02Tests = withWatermark(Ch12Sec02Tests);
+const WCh12Sec03Power = withWatermark(Ch12Sec03Power);
+const WCh12Sec04Taylor = withWatermark(Ch12Sec04Taylor);
+const WCh12Sec05Apps = withWatermark(Ch12Sec05Apps);
+const WCh12Sec06Fourier = withWatermark(Ch12Sec06Fourier);
+const WCh12Sec07Fourier2 = withWatermark(Ch12Sec07Fourier2);
+
 export const RemotionRoot: React.FC = () => {
   return (
     <>
       {/* 第七章：微分方程 */}
-      <Composition id="Ch07-Sec01-Intro" component={Sec01Intro}
-        durationInFrames={450} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
-      <Composition id="Ch07-Sec02-Separable" component={Sec02Separable}
-        durationInFrames={540} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
-      <Composition id="Ch07-Sec03-Homogeneous" component={Sec03Homogeneous}
-        durationInFrames={300} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
-      <Composition id="Ch07-Sec04-Linear" component={Sec04Linear}
-        durationInFrames={540} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
-      <Composition id="Ch07-Sec05-Exact" component={Sec05Exact}
-        durationInFrames={300} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
-      <Composition id="Ch07-Sec06-HighOrder" component={Sec06HighOrder}
-        durationInFrames={300} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
-      <Composition id="Ch07-Sec07-Linear2" component={Sec07Linear2}
-        durationInFrames={300} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
-      <Composition id="Ch07-Sec08-ConstCoeff" component={Sec08ConstCoeff}
-        durationInFrames={600} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
-      <Composition id="Ch07-Sec09-NonHomog" component={Sec09NonHomog}
-        durationInFrames={480} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+      <Folder name="Ch07-DifferentialEq">
+        <Composition id="Ch07-Index" component={WCh07Index}
+          durationInFrames={300} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+        <Composition id="Ch07-Sec01-Intro" component={WSec01Intro}
+          durationInFrames={450} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+        <Composition id="Ch07-Sec02-Separable" component={WSec02Separable}
+          durationInFrames={540} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+        <Composition id="Ch07-Sec03-Homogeneous" component={WSec03Homogeneous}
+          durationInFrames={480} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+        <Composition id="Ch07-Sec04-Linear" component={WSec04Linear}
+          durationInFrames={540} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+        <Composition id="Ch07-Sec05-Exact" component={WSec05Exact}
+          durationInFrames={480} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+        <Composition id="Ch07-Sec06-HighOrder" component={WSec06HighOrder}
+          durationInFrames={480} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+        <Composition id="Ch07-Sec07-Linear2" component={WSec07Linear2}
+          durationInFrames={480} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+        <Composition id="Ch07-Sec08-ConstCoeff" component={WSec08ConstCoeff}
+          durationInFrames={600} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+        <Composition id="Ch07-Sec09-NonHomog" component={WSec09NonHomog}
+          durationInFrames={480} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+      </Folder>
 
       {/* 第八章：空间解析几何与向量代数 */}
-      <Composition id="Ch08-Sec01-Vectors" component={Ch08Sec01Vectors}
-        durationInFrames={450} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
-      <Composition id="Ch08-Sec02-Products" component={Ch08Sec02Products}
-        durationInFrames={540} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
-      <Composition id="Ch08-Sec03-Surfaces" component={Ch08Sec03Surfaces}
-        durationInFrames={300} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
-      <Composition id="Ch08-Sec04-Curves" component={Ch08Sec04Curves}
-        durationInFrames={300} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
-      <Composition id="Ch08-Sec05-Plane" component={Ch08Sec05Plane}
-        durationInFrames={480} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
-      <Composition id="Ch08-Sec06-Line" component={Ch08Sec06Line}
-        durationInFrames={480} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+      <Folder name="Ch08-VectorGeometry">
+        <Composition id="Ch08-Index" component={WCh08Index}
+          durationInFrames={300} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+        <Composition id="Ch08-Sec01-Vectors" component={WCh08Sec01Vectors}
+          durationInFrames={450} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+        <Composition id="Ch08-Sec02-Products" component={WCh08Sec02Products}
+          durationInFrames={540} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+        <Composition id="Ch08-Sec03-Surfaces" component={WCh08Sec03Surfaces}
+          durationInFrames={480} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+        <Composition id="Ch08-Sec04-Curves" component={WCh08Sec04Curves}
+          durationInFrames={480} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+        <Composition id="Ch08-Sec05-Plane" component={WCh08Sec05Plane}
+          durationInFrames={480} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+        <Composition id="Ch08-Sec06-Line" component={WCh08Sec06Line}
+          durationInFrames={480} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+      </Folder>
 
-      {/* 第九章：多元函数微分法 */}
-      <Composition id="Ch09-Sec01-Concept" component={Ch09Sec01Concept}
-        durationInFrames={300} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
-      <Composition id="Ch09-Sec02-Partial" component={Ch09Sec02Partial}
-        durationInFrames={540} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
-      <Composition id="Ch09-Sec03-Total" component={Ch09Sec03Total}
-        durationInFrames={300} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
-      <Composition id="Ch09-Sec04-Chain" component={Ch09Sec04Chain}
-        durationInFrames={300} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
-      <Composition id="Ch09-Sec05-Implicit" component={Ch09Sec05Implicit}
-        durationInFrames={300} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
-      <Composition id="Ch09-Sec06-Geometry" component={Ch09Sec06Geometry}
-        durationInFrames={300} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
-      <Composition id="Ch09-Sec07-Gradient" component={Ch09Sec07Gradient}
-        durationInFrames={540} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
-      <Composition id="Ch09-Sec08-Extremum" component={Ch09Sec08Extremum}
-        durationInFrames={480} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+      {/* 第九章：多元函数微分法及其应用 */}
+      <Folder name="Ch09-MultiVariable">
+        <Composition id="Ch09-Index" component={WCh09Index}
+          durationInFrames={300} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+        <Composition id="Ch09-Sec01-Concept" component={WCh09Sec01Concept}
+          durationInFrames={480} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+        <Composition id="Ch09-Sec02-Partial" component={WCh09Sec02Partial}
+          durationInFrames={540} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+        <Composition id="Ch09-Sec03-Total" component={WCh09Sec03Total}
+          durationInFrames={480} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+        <Composition id="Ch09-Sec04-Chain" component={WCh09Sec04Chain}
+          durationInFrames={480} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+        <Composition id="Ch09-Sec05-Implicit" component={WCh09Sec05Implicit}
+          durationInFrames={480} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+        <Composition id="Ch09-Sec06-Geometry" component={WCh09Sec06Geometry}
+          durationInFrames={480} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+        <Composition id="Ch09-Sec07-Gradient" component={WCh09Sec07Gradient}
+          durationInFrames={540} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+        <Composition id="Ch09-Sec08-Extremum" component={WCh09Sec08Extremum}
+          durationInFrames={480} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+      </Folder>
 
       {/* 第十章：重积分 */}
-      <Composition id="Ch10-Sec01-Concept" component={Ch10Sec01Concept}
-        durationInFrames={480} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
-      <Composition id="Ch10-Sec02-Calc2D" component={Ch10Sec02Calc2D}
-        durationInFrames={600} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
-      <Composition id="Ch10-Sec03-Triple" component={Ch10Sec03Triple}
-        durationInFrames={480} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
-      <Composition id="Ch10-Sec04-Apps" component={Ch10Sec04Apps}
-        durationInFrames={480} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+      <Folder name="Ch10-MultipleIntegral">
+        <Composition id="Ch10-Index" component={WCh10Index}
+          durationInFrames={300} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+        <Composition id="Ch10-Sec01-Concept" component={WCh10Sec01Concept}
+          durationInFrames={480} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+        <Composition id="Ch10-Sec02-Calc2D" component={WCh10Sec02Calc2D}
+          durationInFrames={600} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+        <Composition id="Ch10-Sec03-Triple" component={WCh10Sec03Triple}
+          durationInFrames={480} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+        <Composition id="Ch10-Sec04-Apps" component={WCh10Sec04Apps}
+          durationInFrames={480} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+      </Folder>
 
       {/* 第十一章：曲线积分与曲面积分 */}
-      <Composition id="Ch11-Sec01-Line1" component={Ch11Sec01Line1}
-        durationInFrames={480} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
-      <Composition id="Ch11-Sec02-Line2" component={Ch11Sec02Line2}
-        durationInFrames={480} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
-      <Composition id="Ch11-Sec03-Green" component={Ch11Sec03Green}
-        durationInFrames={540} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
-      <Composition id="Ch11-Sec04-Surface1" component={Ch11Sec04Surface1}
-        durationInFrames={300} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
-      <Composition id="Ch11-Sec05-Surface2" component={Ch11Sec05Surface2}
-        durationInFrames={300} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
-      <Composition id="Ch11-Sec06-Gauss" component={Ch11Sec06Gauss}
-        durationInFrames={480} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
-      <Composition id="Ch11-Sec07-Stokes" component={Ch11Sec07Stokes}
-        durationInFrames={480} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+      <Folder name="Ch11-LineAndSurface">
+        <Composition id="Ch11-Index" component={WCh11Index}
+          durationInFrames={300} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+        <Composition id="Ch11-Sec01-Line1" component={WCh11Sec01Line1}
+          durationInFrames={480} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+        <Composition id="Ch11-Sec02-Line2" component={WCh11Sec02Line2}
+          durationInFrames={480} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+        <Composition id="Ch11-Sec03-Green" component={WCh11Sec03Green}
+          durationInFrames={540} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+        <Composition id="Ch11-Sec04-Surface1" component={WCh11Sec04Surface1}
+          durationInFrames={480} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+        <Composition id="Ch11-Sec05-Surface2" component={WCh11Sec05Surface2}
+          durationInFrames={480} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+        <Composition id="Ch11-Sec06-Gauss" component={WCh11Sec06Gauss}
+          durationInFrames={480} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+        <Composition id="Ch11-Sec07-Stokes" component={WCh11Sec07Stokes}
+          durationInFrames={480} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+      </Folder>
 
       {/* 第十二章：无穷级数 */}
-      <Composition id="Ch12-Sec01-Concept" component={Ch12Sec01Concept}
-        durationInFrames={480} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
-      <Composition id="Ch12-Sec02-Tests" component={Ch12Sec02Tests}
-        durationInFrames={540} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
-      <Composition id="Ch12-Sec03-Power" component={Ch12Sec03Power}
-        durationInFrames={480} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
-      <Composition id="Ch12-Sec04-Taylor" component={Ch12Sec04Taylor}
-        durationInFrames={540} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
-      <Composition id="Ch12-Sec05-Apps" component={Ch12Sec05Apps}
-        durationInFrames={300} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
-      <Composition id="Ch12-Sec06-Fourier" component={Ch12Sec06Fourier}
-        durationInFrames={600} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
-      <Composition id="Ch12-Sec07-Fourier2" component={Ch12Sec07Fourier2}
-        durationInFrames={480} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+      <Folder name="Ch12-Series">
+        <Composition id="Ch12-Index" component={WCh12Index}
+          durationInFrames={300} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+        <Composition id="Ch12-Sec01-Concept" component={WCh12Sec01Concept}
+          durationInFrames={480} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+        <Composition id="Ch12-Sec02-Tests" component={WCh12Sec02Tests}
+          durationInFrames={540} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+        <Composition id="Ch12-Sec03-Power" component={WCh12Sec03Power}
+          durationInFrames={480} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+        <Composition id="Ch12-Sec04-Taylor" component={WCh12Sec04Taylor}
+          durationInFrames={540} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+        <Composition id="Ch12-Sec05-Apps" component={WCh12Sec05Apps}
+          durationInFrames={480} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+        <Composition id="Ch12-Sec06-Fourier" component={WCh12Sec06Fourier}
+          durationInFrames={600} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+        <Composition id="Ch12-Sec07-Fourier2" component={WCh12Sec07Fourier2}
+          durationInFrames={480} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+      </Folder>
     </>
   );
 };

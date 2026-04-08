@@ -92,7 +92,7 @@ const Sec08ConstCoeff: React.FC = () => {
           chapterNum="七"
           chapterTitle="微分方程"
           sectionNum="7.8"
-          sectionTitle="常系数齐次线性方程"
+          sectionTitle="常系数齐次线性微分方程"
           opacity={titleOpacity}
         />
       )}
@@ -378,7 +378,7 @@ const Sec08ConstCoeff: React.FC = () => {
             padding: "0 100px",
           }}
         >
-          <TheoremBox title="常系数齐次线性方程通解" opacity={summaryOpacity} width={1000}>
+          <TheoremBox title="常系数齐次线性微分方程通解" opacity={summaryOpacity} width={1000}>
             <div style={{ fontSize: 24, lineHeight: 2.1, color: COLORS.formula }}>
               <div>
                 方程{" "}
