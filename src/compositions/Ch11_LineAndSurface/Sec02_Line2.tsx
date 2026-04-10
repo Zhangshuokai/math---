@@ -132,6 +132,13 @@ const Sec02Line2: React.FC = () => {
   // Scene 5: 总结
   const s5Op = fade(frame, 390, 30);
 
+  // Scene 2: 路径点（提升到组件顶层，避免在 JSX 渲染中使用 IIFE）
+  const s2PathN = 20;
+  const s2PathPts: Array<[number, number]> = Array.from({ length: s2PathN + 1 }, (_, i) => {
+    const tt = i / s2PathN;
+    return [-1 + 2 * tt, -0.5 + tt] as [number, number];
+  });
+
   return (
     <AbsoluteFill style={{ backgroundColor: COLORS.background }}>
       {/* Scene 1 */}
@@ -167,21 +174,14 @@ const Sec02Line2: React.FC = () => {
               opacity={s2FieldOp * 0.7}
             />
             {/* 路径：从 (-1,-0.5) 到 (1,0.5) */}
-            {s2PathOp > 0 && (() => {
-              const N = 20;
-              const pathPts: Array<[number, number]> = Array.from({ length: N + 1 }, (_, i) => {
-                const tt = i / N;
-                return [-1 + 2 * tt, -0.5 + tt] as [number, number];
-              });
-              return (
-                <WorkPathLine
-                  points={pathPts}
-                  progress={Math.min(1, s2PathOp / 0.7)}
-                  opacity={s2PathOp}
-                  color="#F59E0B"
-                />
-              );
-            })()}
+            {s2PathOp > 0 && (
+              <WorkPathLine
+                points={s2PathPts}
+                progress={Math.min(1, s2PathOp / 0.7)}
+                opacity={s2PathOp}
+                color="#F59E0B"
+              />
+            )}
           </CoordinateSystem>
           <div style={{ opacity: s2Formula }}>
             <MathFormula
