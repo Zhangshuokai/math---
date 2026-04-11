@@ -8,7 +8,6 @@ import { CoordinateSystem3D } from '../../components/math/CoordinateSystem3D';
 import { AnimatedVector3D } from '../../components/math/AnimatedVector3D';
 import { ParametricCurve3D } from '../../components/math/ParametricCurve3D';
 import { Plane3D } from '../../components/math/Plane3D';
-import { withWatermark } from '../../components/ui/Watermark';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // 工具函数
@@ -838,8 +837,4 @@ const Ch08Examples: React.FC = () => {
   return <Example3 frame={frame - 1080} />;
 };
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Watermark HOC（模块顶层定义）
-// ─────────────────────────────────────────────────────────────────────────────
-const WCh08Examples = withWatermark(Ch08Examples);
-export default WCh08Examples;
+export default Ch08Examples;

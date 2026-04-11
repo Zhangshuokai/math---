@@ -6,7 +6,6 @@ import { ExampleBox } from "../../components/ui/ExampleBox";
 import { TheoremBox } from "../../components/ui/TheoremBox";
 import { CoordinateSystem } from "../../components/math/CoordinateSystem";
 import { FunctionPlot } from "../../components/math/FunctionPlot";
-import { withWatermark } from "../../components/ui/Watermark";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // 工具函数
@@ -744,6 +743,4 @@ export const Ch07Examples: React.FC = () => {
   );
 };
 
-// 模块顶层：withWatermark 包裹（Root.tsx 再次 import 后会用 withWatermark 包裹）
-const WCh07Examples = withWatermark(Ch07Examples);
-export default WCh07Examples;
+export default Ch07Examples;
