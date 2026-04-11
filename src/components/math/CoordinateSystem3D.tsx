@@ -1,9 +1,5 @@
 import React, { createContext, useContext } from 'react';
 
-// 等轴测投影常量
-const COS30 = Math.sqrt(3) / 2; // ≈ 0.866
-const SIN30 = 0.5;
-
 export interface ToISOResult { svgX: number; svgY: number }
 export type ToISOFn = (x: number, y: number, z: number) => ToISOResult;
 
@@ -21,6 +17,40 @@ export function useCoordContext3D(): CoordContext3DType {
   return ctx;
 }
 
+/**
+ * 构造旋转投影函数：先绕Y轴旋转（方位角），再绕X轴旋转（俯仰角），最后正交投影
+ * @param cx    SVG中心X
+ * @param cy    SVG中心Y
+ * @param scale 像素/单位
+ * @param rotX  绕X轴旋转角（弧度），控制俯仰，默认 Math.PI/6（30°）
+ * @param rotY  绕Y轴旋转角（弧度），控制水平方位，默认 Math.PI/4（45°）
+ */
+const makeToISO = (
+  cx: number,
+  cy: number,
+  scale: number,
+  rotX: number,
+  rotY: number
+): ToISOFn => {
+  return (x: number, y: number, z: number) => {
+    // Step 1: 绕Y轴旋转（方位角 azimuth）
+    const x1 = x * Math.cos(rotY) + z * Math.sin(rotY);
+    const y1 = y;
+    const z1 = -x * Math.sin(rotY) + z * Math.cos(rotY);
+
+    // Step 2: 绕X轴旋转（俯仰角 elevation）
+    const x2 = x1;
+    const y2 = y1 * Math.cos(rotX) - z1 * Math.sin(rotX);
+    // z2 = y1 * Math.sin(rotX) + z1 * Math.cos(rotX);  // 深度（正交投影不需要）
+
+    // Step 3: 正交投影到SVG坐标（SVG Y轴向下，取负）
+    return {
+      svgX: cx + x2 * scale,
+      svgY: cy - y2 * scale,
+    };
+  };
+};
+
 export interface CoordinateSystem3DProps {
   center?: [number, number];    // SVG 坐标系原点位置，默认 [540, 400]
   scale?: number;               // 单位长度对应像素数，默认 60
@@ -33,6 +63,8 @@ export interface CoordinateSystem3DProps {
   children?: React.ReactNode;
   width?: number;               // SVG 宽度，默认 500
   height?: number;              // SVG 高度，默认 450
+  rotationX?: number;           // 绕X轴旋转角（弧度），控制俯仰，默认 Math.PI/6（30°）
+  rotationY?: number;           // 绕Y轴旋转角（弧度），控制水平方位，默认 Math.PI/4（45°）
 }
 
 export const CoordinateSystem3D: React.FC<CoordinateSystem3DProps> = ({
@@ -47,17 +79,16 @@ export const CoordinateSystem3D: React.FC<CoordinateSystem3DProps> = ({
   children,
   width = 500,
   height = 450,
+  rotationX = Math.PI / 6,
+  rotationY = Math.PI / 4,
 }) => {
   const [cx, cy] = center;
   const [xMin, xMax] = xRange;
   const [yMin, yMax] = yRange;
   const [, zMax] = zRange;
 
-  // 等轴测投影函数
-  const toISO: ToISOFn = (x, y, z) => ({
-    svgX: cx + (x - y) * COS30 * scale,
-    svgY: cy + (x + y) * SIN30 * scale - z * scale,
-  });
+  // 旋转矩阵投影函数（先绕Y轴旋转，再绕X轴旋转，最后正交投影）
+  const toISO: ToISOFn = makeToISO(cx, cy, scale, rotationX, rotationY);
 
   // 绘制 xy 平面网格（z=0）
   const gridLines: React.ReactNode[] = [];

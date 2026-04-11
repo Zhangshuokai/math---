@@ -1,465 +1,582 @@
 import React from "react";
 import { AbsoluteFill, useCurrentFrame, interpolate } from "remotion";
+import katex from "katex";
 import { COLORS } from "../../constants/colorTheme";
 import { TitleCard } from "../../components/ui/TitleCard";
-import { MathFormula } from "../../components/math/MathFormula";
 import { TheoremBox } from "../../components/ui/TheoremBox";
-import { CoordinateSystem, useCoordContext } from "../../components/math/CoordinateSystem";
-import { FunctionPlot } from "../../components/math/FunctionPlot";
+import { CoordinateSystem3D } from "../../components/math/CoordinateSystem3D";
+import { SurfaceMesh3D } from "../../components/math/SurfaceMesh3D";
+import { AnimatedVector3D } from "../../components/math/AnimatedVector3D";
+import { ParametricCurve3D } from "../../components/math/ParametricCurve3D";
 
+// ─────────────────────────────────────────────────────────────────────────────
+// 工具函数
+// ─────────────────────────────────────────────────────────────────────────────
 const fade = (frame: number, start: number, duration = 30) =>
   interpolate(frame, [start, start + duration], [0, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
 
-// 椭圆组件（在坐标系内通过 SVG ellipse 绘制）
-const EllipseInCoord: React.FC<{
-  cx: number; cy: number;
-  rx: number; ry: number;
-  color: string;
-  strokeWidth?: number;
-  opacity?: number;
-  dashProgress?: number; // 0~1 控制描边动画
-}> = ({ cx, cy, rx, ry, color, strokeWidth = 2.5, opacity = 1, dashProgress = 1 }) => {
-  const { toPixel } = useCoordContext();
-  const center = toPixel(cx, cy);
-  const edgeX = toPixel(cx + rx, cy);
-  const edgeY = toPixel(cx, cy + ry);
-  const pxRx = Math.abs(edgeX.px - center.px);
-  const pxRy = Math.abs(edgeY.py - center.py);
-  const circumference = Math.PI * (3 * (pxRx + pxRy) - Math.sqrt((3 * pxRx + pxRy) * (pxRx + 3 * pxRy)));
-  const dashOffset = circumference * (1 - dashProgress);
-  return (
-    <ellipse
-      cx={center.px}
-      cy={center.py}
-      rx={pxRx}
-      ry={pxRy}
-      fill="none"
-      stroke={color}
-      strokeWidth={strokeWidth}
-      opacity={opacity}
-      strokeDasharray={`${circumference}`}
-      strokeDashoffset={dashOffset}
-    />
-  );
-};
+const clamp = { extrapolateLeft: "clamp" as const, extrapolateRight: "clamp" as const };
 
-// 圆形组件（用于球面截面示意）
-const CircleInCoord: React.FC<{
-  cx: number; cy: number; r: number;
-  color: string; strokeWidth?: number; opacity?: number; dashProgress?: number;
-}> = ({ cx, cy, r, color, strokeWidth = 2.5, opacity = 1, dashProgress = 1 }) => {
-  const { toPixel } = useCoordContext();
-  const center = toPixel(cx, cy);
-  const edge = toPixel(cx + r, cy);
-  const pxR = Math.abs(edge.px - center.px);
-  const circumference = 2 * Math.PI * pxR;
-  const dashOffset = circumference * (1 - dashProgress);
-  return (
-    <circle
-      cx={center.px}
-      cy={center.py}
-      r={pxR}
-      fill="none"
-      stroke={color}
-      strokeWidth={strokeWidth}
-      opacity={opacity}
-      strokeDasharray={`${circumference}`}
-      strokeDashoffset={dashOffset}
-    />
-  );
-};
+const math = (latex: string, display = false) =>
+  katex.renderToString(latex, { throwOnError: false, displayMode: display });
 
-// 旋转曲面示意：y=f(x) 绕 x 轴旋转
-const RotationSurface: React.FC<{ opacity?: number; drawProgress?: number }> = ({
-  opacity = 1, drawProgress = 1,
-}) => {
-  const { toPixel } = useCoordContext();
-  // 绘制母线 y = sqrt(x+2) (x从-1到3)
-  const points: { x: number; y: number }[] = [];
-  for (let i = 0; i <= 60; i++) {
-    const x = -1 + (i / 60) * 4;
-    const y = Math.sqrt(Math.max(0, x + 2));
-    points.push({ x, y });
-  }
-  const cutoff = Math.floor(points.length * drawProgress);
-  const visible = points.slice(0, Math.max(1, cutoff));
-  const pathData = visible
-    .map((p, i) => {
-      const { px, py } = toPixel(p.x, p.y);
-      return `${i === 0 ? "M" : "L"} ${px},${py}`;
-    })
-    .join(" ");
+// ─────────────────────────────────────────────────────────────────────────────
+// 颜色常量
+// ─────────────────────────────────────────────────────────────────────────────
+const BG = COLORS.background;
+const ACCENT = COLORS.primaryCurve ?? "#61dafb";
+const TEXT = COLORS.annotation ?? "#94a3b8";
+const FORMULA = COLORS.formula ?? "#f8f8f2";
+const GREEN = "#50fa7b";
+const PINK = "#ff79c6";
+const GOLD = "#ffd700";
+const PURPLE = "#bd93f9";
 
-  // 对称轴下方（y = -sqrt(x+2)）
-  const pathDataMirror = visible
-    .map((p, i) => {
-      const { px, py } = toPixel(p.x, -p.y);
-      return `${i === 0 ? "M" : "L"} ${px},${py}`;
-    })
-    .join(" ");
-
-  // x轴标记
-  const xAxisPt = toPixel(3, 0);
-  const xAxisStart = toPixel(-1, 0);
-
-  return (
-    <g opacity={opacity}>
-      {/* 母线（上方） */}
-      <path d={pathData} fill="none" stroke={COLORS.primaryCurve} strokeWidth={3} />
-      {/* 旋转后的下方曲线（虚线） */}
-      <path d={pathDataMirror} fill="none" stroke={COLORS.primaryCurve} strokeWidth={2} strokeDasharray="6,4" />
-      {/* 绕轴示意：圆形截面 */}
-      {drawProgress > 0.7 && (() => {
-        const p = toPixel(1, 0);
-        const edge = toPixel(1, Math.sqrt(3));
-        const r = Math.abs(edge.py - p.py);
-        return (
-          <ellipse
-            cx={p.px} cy={p.py}
-            rx={r * 0.35} ry={r}
-            fill="none"
-            stroke={COLORS.highlight}
-            strokeWidth={2}
-            opacity={(drawProgress - 0.7) / 0.3}
-            strokeDasharray="5,3"
-          />
-        );
-      })()}
-      {/* 旋转方向箭头 */}
-      {drawProgress > 0.85 && (
-        <text
-          x={toPixel(2.2, 1.4).px}
-          y={toPixel(2.2, 1.4).py}
-          fill={COLORS.highlight}
-          fontSize={22}
-          opacity={(drawProgress - 0.85) / 0.15}
-        >
-          ↻ 绕 x 轴旋转
-        </text>
-      )}
-    </g>
-  );
-};
-
+// ─────────────────────────────────────────────────────────────────────────────
+// 主组件（540帧 = 18秒）
+// ─────────────────────────────────────────────────────────────────────────────
 const Sec03Surfaces: React.FC = () => {
   const frame = useCurrentFrame();
 
-  // Scene 1: 0-80 标题
-  const titleOpacity = fade(frame, 0, 30);
+  // 场景切换
+  const scene = frame < 60 ? 1
+    : frame < 150 ? 2
+    : frame < 270 ? 3
+    : frame < 390 ? 4
+    : frame < 480 ? 5
+    : 6;
 
-  // Scene 2: 80-180 球面方程
-  const s2Title = fade(frame, 80, 20);
-  const s2Thm = fade(frame, 100, 25);
-  const s2CircleOp = fade(frame, 130, 20);
-  const s2CircleDraw = interpolate(frame, [140, 175], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
-  const s2Note = fade(frame, 155, 20);
+  // ── Scene 1: 标题 ──
+  const s1Op = fade(frame, 0, 30);
 
-  // Scene 3: 180-290 柱面方程
-  const s3Title = fade(frame, 180, 20);
-  const s3Eq = fade(frame, 200, 20);
-  const s3Ellipse1 = interpolate(frame, [220, 250], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
-  const s3Ellipse1Op = fade(frame, 220, 20);
-  const s3Ellipse2 = interpolate(frame, [245, 270], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
-  const s3Ellipse2Op = fade(frame, 245, 20);
-  const s3Ellipse3 = interpolate(frame, [265, 285], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
-  const s3Ellipse3Op = fade(frame, 265, 20);
+  // ── Scene 2: 曲面概念（60-150帧）抛物面 + 旋转 ──
+  const s2Op = fade(frame, 60, 20);
+  // 旋转：从 π/4 缓缓转到 π/4 + π/2
+  const rotY2 = interpolate(frame, [60, 150], [Math.PI / 4, Math.PI / 4 + Math.PI / 2], clamp);
 
-  // Scene 4: 290-380 二次曲面2D截面可视化
-  const s4Title = fade(frame, 290, 20);
-  const s4CoordOp = fade(frame, 305, 20);
-  const s4Curve1 = interpolate(frame, [315, 340], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
-  const s4Curve1Op = fade(frame, 315, 15);
-  const s4Curve2 = interpolate(frame, [338, 358], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
-  const s4Curve2Op = fade(frame, 338, 15);
-  const s4Curve3 = interpolate(frame, [355, 372], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
-  const s4Curve3Op = fade(frame, 355, 15);
-  const s4Curve4 = interpolate(frame, [368, 378], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
-  const s4Curve4Op = fade(frame, 368, 12);
-  const s4LegendOp = fade(frame, 372, 8);
+  // ── Scene 3: 球面（150-270帧）+ Polanyi：纬线生成过程 ──
+  const s3Op = fade(frame, 150, 20);
+  // 球面"生长"：drawProgress 控制参数范围（纬度从赤道向两极扩展）
+  const sphereGrow = interpolate(frame, [160, 240], [0, 1], clamp);
+  // 旋转展示球面
+  const rotY3 = interpolate(frame, [150, 270], [Math.PI / 6, Math.PI / 6 + Math.PI * 2 / 3], clamp);
+  // 纬线数：sphereGrow 控制使用多少纬度范围（phi 从 π/2-epsilon 到 0 然后到 π）
+  const sphereVSteps = Math.max(2, Math.floor(sphereGrow * 14));
 
-  // Scene 5: 380-480 旋转曲面
-  const s5Title = fade(frame, 380, 20);
-  const s5Eq = fade(frame, 400, 20);
-  const s5CoordOp = fade(frame, 415, 20);
-  const s5Draw = interpolate(frame, [430, 475], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
-  const s5Note = fade(frame, 460, 20);
+  // ── Scene 4: 圆柱面（270-390帧）+ "母线"概念 ──
+  const s4Op = fade(frame, 270, 20);
+  const rotY4 = interpolate(frame, [270, 390], [Math.PI / 6, Math.PI / 6 + Math.PI * 2 / 3], clamp);
+  // 母线绘制进度（一条平行于Z轴的直线沿圆周移动）
+  const generatrixAngle = interpolate(frame, [290, 370], [0, Math.PI * 2], clamp);
+  const generatrixX = Math.cos(generatrixAngle);
+  const generatrixY = Math.sin(generatrixAngle);
+  const cylinderProgress = interpolate(frame, [280, 310], [0, 1], clamp);
 
-  const scene = frame < 80 ? 1
-    : frame < 180 ? 2
-    : frame < 290 ? 3
-    : frame < 380 ? 4
-    : 5;
+  // ── Scene 5: 旋转曲面（390-480帧）母线 y=√z 绕Z轴 ──
+  const s5Op = fade(frame, 390, 20);
+  const rotY5 = interpolate(frame, [390, 480], [Math.PI / 6, Math.PI / 6 + Math.PI * 4 / 3], clamp);
+  // 母线显示进度
+  const motherLineProgress = interpolate(frame, [400, 430], [0, 1], clamp);
+  // 旋转面生成进度（theta 范围从0到2π）
+  const rotSurfaceUMax = interpolate(frame, [430, 475], [0.01, Math.PI * 2], clamp);
+
+  // ── Scene 6: 总结（480-540帧）──
+  const s6Op = fade(frame, 480, 30);
 
   return (
-    <AbsoluteFill style={{ backgroundColor: COLORS.background }}>
-      {/* Scene 1: 标题 */}
+    <AbsoluteFill style={{ backgroundColor: BG }}>
+
+      {/* ── Scene 1: 标题 ── */}
       {scene === 1 && (
         <TitleCard
           chapterNum="八"
           chapterTitle="空间解析几何与向量代数"
           sectionNum="8.3"
-          sectionTitle="曲面及其方程"
-          opacity={titleOpacity}
+          sectionTitle="空间曲面与方程"
+          opacity={s1Op}
         />
       )}
 
-      {/* Scene 2: 球面方程 */}
+      {/* ── Scene 2: 曲面概念 + 抛物面 ── */}
       {scene === 2 && (
-        <AbsoluteFill
+        <div
           style={{
-            justifyContent: "center",
+            opacity: s2Op,
+            display: "flex",
+            width: "100%",
+            height: "100%",
             alignItems: "center",
-            flexDirection: "column",
-            gap: 20,
-            padding: "0 80px",
           }}
         >
-          <div style={{ color: COLORS.primaryCurve, fontSize: 28, opacity: s2Title }}>
-            球面：到定点等距的点的集合
-          </div>
-
-          <div style={{ opacity: s2Thm, width: "100%" }}>
-            <TheoremBox title="球面方程" opacity={1} width={960}>
-              <div style={{ fontSize: 24, lineHeight: 2.2, color: COLORS.formula }}>
-                <div>
-                  圆心 <span style={{ color: COLORS.primaryCurve }}>(a, b, c)</span>，半径{" "}
-                  <span style={{ color: COLORS.highlight }}>R</span> 的球面：
-                </div>
-                <MathFormula
-                  latex="(x-a)^2 + (y-b)^2 + (z-c)^2 = R^2"
-                  fontSize={46}
-                  color={COLORS.formula}
-                />
-                <div style={{ marginTop: 8 }}>
-                  过原点的标准球面：
-                  <span style={{ color: COLORS.secondaryCurve }}>  x² + y² + z² = R²</span>
-                </div>
-              </div>
-            </TheoremBox>
-          </div>
-
-          <div style={{ opacity: s2CircleOp, display: "flex", flexDirection: "column", alignItems: "center", gap: 12 }}>
-            <div style={{ color: COLORS.annotation, fontSize: 20 }}>
-              球面的 z=0 截面：以原点为圆心、R 为半径的圆
-            </div>
-            <CoordinateSystem
-              width={400}
-              height={300}
+          <div style={{ flex: 1, display: "flex", justifyContent: "center" }}>
+            <CoordinateSystem3D
+              width={820}
+              height={640}
+              center={[410, 450]}
+              scale={62}
               xRange={[-3, 3]}
               yRange={[-3, 3]}
-              showGrid={false}
-              opacity={s2CircleOp}
+              zRange={[0, 4.5]}
+              rotationX={Math.PI / 6}
+              rotationY={rotY2}
             >
-              <CircleInCoord cx={0} cy={0} r={2} color={COLORS.primaryCurve} dashProgress={s2CircleDraw} />
-              {/* R 标注 */}
-              {s2CircleDraw > 0.3 && (() => {
-                return null; // 使用 text 在坐标系外标注即可
-              })()}
-            </CoordinateSystem>
+              {/* 抛物面 z = x²+y² */}
+              <SurfaceMesh3D
+                x={(u, _v) => u}
+                y={(_u, v) => v}
+                z={(u, v) => u * u + v * v}
+                uMin={-2}
+                uMax={2}
+                uSteps={12}
+                vMin={-2}
+                vMax={2}
+                vSteps={12}
+                color={ACCENT}
+                strokeWidth={0.9}
+                opacity={0.65}
+              />
+            </CoordinateSystem3D>
           </div>
-
-          <div style={{ opacity: s2Note, color: COLORS.annotation, fontSize: 20 }}>
-            截面 z=k 为圆：x² + y² = R² − k²（当 |k| &lt; R 时有圆截面）
+          <div
+            style={{
+              width: 500,
+              padding: "0 48px 0 0",
+              display: "flex",
+              flexDirection: "column",
+              gap: 22,
+            }}
+          >
+            <div style={{ color: ACCENT, fontSize: 34, fontWeight: "bold" }}>
+              空间曲面的概念
+            </div>
+            <div style={{ fontSize: 25, color: TEXT, lineHeight: 1.9 }}>
+              空间曲面是满足方程
+              <div
+                style={{ textAlign: "center", margin: "12px 0", fontSize: 28 }}
+                dangerouslySetInnerHTML={{ __html: math("F(x,\\,y,\\,z) = 0", true) }}
+              />
+              的点的集合。
+            </div>
+            <div
+              style={{
+                background: "rgba(97,218,251,0.08)",
+                borderRadius: 10,
+                padding: "16px 20px",
+                fontSize: 23,
+                color: TEXT,
+                lineHeight: 1.85,
+              }}
+            >
+              示例：抛物面{" "}
+              <span
+                style={{ color: ACCENT }}
+                dangerouslySetInnerHTML={{ __html: math("z = x^2 + y^2") }}
+              />
+              <br />
+              即 <span dangerouslySetInnerHTML={{ __html: math("x^2+y^2-z=0") }} />
+              <br />
+              <span style={{ color: GOLD }}>→ 旋转坐标系观察立体形状</span>
+            </div>
           </div>
-        </AbsoluteFill>
+        </div>
       )}
 
-      {/* Scene 3: 柱面方程 + 椭圆截面动画 */}
+      {/* ── Scene 3: 球面（Polanyi：纬线逐渐生成）── */}
       {scene === 3 && (
-        <AbsoluteFill
+        <div
           style={{
-            justifyContent: "center",
+            opacity: s3Op,
+            display: "flex",
+            width: "100%",
+            height: "100%",
             alignItems: "center",
-            flexDirection: "column",
-            gap: 18,
           }}
         >
-          <div style={{ color: COLORS.highlight, fontSize: 28, opacity: s3Title }}>
-            柱面：准线 F(x,y)=0，母线平行 z 轴
+          <div style={{ flex: 1, display: "flex", justifyContent: "center" }}>
+            <CoordinateSystem3D
+              width={820}
+              height={660}
+              center={[410, 440]}
+              scale={80}
+              xRange={[-2, 2]}
+              yRange={[-2, 2]}
+              zRange={[-2, 2]}
+              rotationX={Math.PI / 6}
+              rotationY={rotY3}
+            >
+              {/* 球面 R=1.5，参数方程：x=R·sinφ·cosθ, y=R·sinφ·sinθ, z=R·cosφ
+                  用 vSteps 控制"生长"过程（纬度行数随 sphereGrow 增加）*/}
+              <SurfaceMesh3D
+                x={(u, v) => 1.5 * Math.sin(v) * Math.cos(u)}
+                y={(u, v) => 1.5 * Math.sin(v) * Math.sin(u)}
+                z={(_u, v) => 1.5 * Math.cos(v)}
+                uMin={0}
+                uMax={Math.PI * 2}
+                uSteps={18}
+                vMin={0}
+                vMax={Math.PI}
+                vSteps={sphereVSteps}
+                color={PINK}
+                strokeWidth={1.0}
+                opacity={0.7}
+              />
+            </CoordinateSystem3D>
           </div>
-
-          <div style={{ opacity: s3Eq }}>
-            <MathFormula
-              latex="\frac{x^2}{a^2} + \frac{y^2}{b^2} = 1 \quad \text{（椭圆柱面）}"
-              fontSize={48}
-              color={COLORS.formula}
-            />
-          </div>
-
-          <div style={{ color: COLORS.annotation, fontSize: 20, opacity: s3Eq }}>
-            不论 z 取何值，截面都是同样的椭圆——这就是柱面的特征
-          </div>
-
-          {/* 三个椭圆截面依次绘制，模拟不同高度的截面 */}
-          <CoordinateSystem
-            width={700}
-            height={360}
-            xRange={[-3, 3]}
-            yRange={[-3, 3]}
-            showGrid={false}
-            opacity={s3Eq}
+          <div
+            style={{
+              width: 480,
+              padding: "0 48px 0 0",
+              display: "flex",
+              flexDirection: "column",
+              gap: 20,
+            }}
           >
-            {/* z = 0 截面（蓝色） */}
-            <EllipseInCoord
-              cx={0} cy={0} rx={2} ry={1.2}
-              color={COLORS.primaryCurve}
-              opacity={s3Ellipse1Op}
-              dashProgress={s3Ellipse1}
+            <div style={{ color: PINK, fontSize: 34, fontWeight: "bold" }}>
+              球面方程
+            </div>
+            <div
+              style={{ fontSize: 26, color: FORMULA, textAlign: "center", margin: "4px 0" }}
+              dangerouslySetInnerHTML={{ __html: math("x^2 + y^2 + z^2 = R^2", true) }}
             />
-            {/* z = 1 截面（绿色，偏移示意） */}
-            <EllipseInCoord
-              cx={0.3} cy={0.5} rx={2} ry={1.2}
-              color={COLORS.tertiaryCurve}
-              opacity={s3Ellipse2Op}
-              dashProgress={s3Ellipse2}
-            />
-            {/* z = 2 截面（品红色，再偏移） */}
-            <EllipseInCoord
-              cx={0.6} cy={1.0} rx={2} ry={1.2}
-              color={COLORS.secondaryCurve}
-              opacity={s3Ellipse3Op}
-              dashProgress={s3Ellipse3}
-            />
-            {/* 连接三个椭圆的虚线（左侧、右侧母线） */}
-            {s3Ellipse3Op > 0.5 && (
-              <g opacity={s3Ellipse3Op}>
-                <line
-                  x1={300 - 200} y1={180 - 60}
-                  x2={300 + 60 - 200} y2={180 - 160 - 60}
-                  stroke={COLORS.annotation} strokeWidth={1.5} strokeDasharray="5,4" opacity={0.5}
-                />
-                <line
-                  x1={300 + 200} y1={180 - 60}
-                  x2={300 + 60 + 200} y2={180 - 160 - 60}
-                  stroke={COLORS.annotation} strokeWidth={1.5} strokeDasharray="5,4" opacity={0.5}
-                />
-              </g>
-            )}
-          </CoordinateSystem>
-
-          <div style={{ display: "flex", gap: 32, opacity: s3Ellipse3Op, fontSize: 20 }}>
-            <div style={{ color: COLORS.primaryCurve }}>— z=0 截面</div>
-            <div style={{ color: COLORS.tertiaryCurve }}>— z=1 截面</div>
-            <div style={{ color: COLORS.secondaryCurve }}>— z=2 截面</div>
-            <div style={{ color: COLORS.annotation }}>（各截面形状相同）</div>
+            <div style={{ fontSize: 23, color: TEXT, lineHeight: 1.85 }}>
+              参数方程（{" "}
+              <span dangerouslySetInnerHTML={{ __html: math("R=1.5") }} />）：
+              <div
+                style={{ fontSize: 21, margin: "10px 0" }}
+                dangerouslySetInnerHTML={{
+                  __html: math(
+                    "x=R\\sin\\phi\\cos\\theta,\\;y=R\\sin\\phi\\sin\\theta,\\;z=R\\cos\\phi"
+                  ),
+                }}
+              />
+            </div>
+            <div
+              style={{
+                background: "rgba(255,121,198,0.08)",
+                borderRadius: 10,
+                padding: "14px 18px",
+                fontSize: 22,
+                color: TEXT,
+                lineHeight: 1.85,
+              }}
+            >
+              🔑 <strong style={{ color: PINK }}>Polanyi直觉</strong>：<br />
+              观察球面从赤道向两极"生长"的过程，
+              感受"纬线圆截面"的直觉
+              <br />
+              <span style={{ color: GOLD }}>
+                水平截面 z=c 是圆{" "}
+                <span dangerouslySetInnerHTML={{ __html: math("x^2+y^2=R^2-c^2") }} />
+              </span>
+            </div>
           </div>
-        </AbsoluteFill>
+        </div>
       )}
 
-      {/* Scene 4: 二次曲面2D截面可视化 */}
+      {/* ── Scene 4: 圆柱面（Polanyi：母线运动生成）── */}
       {scene === 4 && (
-        <AbsoluteFill
+        <div
           style={{
-            justifyContent: "center",
+            opacity: s4Op,
+            display: "flex",
+            width: "100%",
+            height: "100%",
             alignItems: "center",
-            flexDirection: "column",
-            gap: 14,
           }}
         >
-          <div style={{ color: COLORS.secondaryCurve, fontSize: 26, opacity: s4Title }}>
-            常见二次曲面的截面投影（XY平面 / X轴截线）
+          <div style={{ flex: 1, display: "flex", justifyContent: "center" }}>
+            <CoordinateSystem3D
+              width={820}
+              height={660}
+              center={[410, 440]}
+              scale={72}
+              xRange={[-2.5, 2.5]}
+              yRange={[-2.5, 2.5]}
+              zRange={[0, 3]}
+              rotationX={Math.PI / 6}
+              rotationY={rotY4}
+            >
+              {/* 圆柱面 x²+y²=1，参数：x=cosθ, y=sinθ, z=t */}
+              <SurfaceMesh3D
+                x={(u, _v) => Math.cos(u)}
+                y={(u, _v) => Math.sin(u)}
+                z={(_u, v) => v}
+                uMin={0}
+                uMax={Math.PI * 2}
+                uSteps={20}
+                vMin={0}
+                vMax={2.5}
+                vSteps={8}
+                color={GREEN}
+                strokeWidth={0.9}
+                opacity={0.55}
+              />
+              {/* 母线：从 (cos(angle), sin(angle), 0) 到 (cos(angle), sin(angle), 2.5) */}
+              <AnimatedVector3D
+                from={[generatrixX, generatrixY, 0]}
+                to={[generatrixX, generatrixY, 2.5]}
+                color={GOLD}
+                strokeWidth={3}
+                drawProgress={cylinderProgress}
+                label="母线"
+                opacity={cylinderProgress > 0 ? 1 : 0}
+              />
+            </CoordinateSystem3D>
           </div>
-
-          <CoordinateSystem
-            width={860}
-            height={440}
-            xRange={[-3, 3]}
-            yRange={[-3, 3]}
-            opacity={s4CoordOp}
+          <div
+            style={{
+              width: 480,
+              padding: "0 48px 0 0",
+              display: "flex",
+              flexDirection: "column",
+              gap: 20,
+            }}
           >
-            {/* 椭球面 XY 截面（椭圆，蓝色） */}
-            <EllipseInCoord
-              cx={0} cy={0} rx={2.2} ry={1.4}
-              color={COLORS.primaryCurve}
-              opacity={s4Curve1Op}
-              dashProgress={s4Curve1}
+            <div style={{ color: GREEN, fontSize: 34, fontWeight: "bold" }}>
+              圆柱面方程
+            </div>
+            <div
+              style={{ fontSize: 26, color: FORMULA, textAlign: "center", margin: "4px 0" }}
+              dangerouslySetInnerHTML={{ __html: math("x^2 + y^2 = R^2", true) }}
             />
-
-            {/* 单叶双曲面 XY 截面（椭圆，更大，绿色） */}
-            <EllipseInCoord
-              cx={0} cy={0} rx={2.6} ry={1.8}
-              color={COLORS.tertiaryCurve}
-              strokeWidth={2}
-              opacity={s4Curve2Op}
-              dashProgress={s4Curve2}
-            />
-
-            {/* 马鞍面 z=x² （向上抛物线，黄色） */}
-            <FunctionPlot
-              fn={(x) => x * x * 0.7}
-              color={COLORS.vector}
-              strokeWidth={2.5}
-              drawProgress={s4Curve3}
-              opacity={s4Curve3Op}
-            />
-
-            {/* z=-y²（向下抛物线，红色） */}
-            <FunctionPlot
-              fn={(x) => -(x * x) * 0.7}
-              color={COLORS.highlight}
-              strokeWidth={2.5}
-              drawProgress={s4Curve4}
-              opacity={s4Curve4Op}
-            />
-          </CoordinateSystem>
-
-          <div style={{ display: "flex", gap: 32, opacity: s4LegendOp, fontSize: 19, flexWrap: "wrap", justifyContent: "center" }}>
-            <div style={{ color: COLORS.primaryCurve }}>— 椭球面 XY截面（椭圆）</div>
-            <div style={{ color: COLORS.tertiaryCurve }}>— 单叶双曲面 XY截面</div>
-            <div style={{ color: COLORS.vector }}>— 马鞍面 z=x²（向上）</div>
-            <div style={{ color: COLORS.highlight }}>— z=−x²（向下）</div>
+            <div style={{ fontSize: 23, color: TEXT, lineHeight: 1.85 }}>
+              参数方程：
+              <div
+                style={{ fontSize: 22, margin: "8px 0" }}
+                dangerouslySetInnerHTML={{
+                  __html: math("x=\\cos\\theta,\\;y=\\sin\\theta,\\;z=t"),
+                }}
+              />
+              <span style={{ fontSize: 21 }}>
+                其中 <span dangerouslySetInnerHTML={{ __html: math("\\theta\\in[0,2\\pi]") }} />，
+                z 任意
+              </span>
+            </div>
+            <div
+              style={{
+                background: "rgba(80,250,123,0.08)",
+                borderRadius: 10,
+                padding: "14px 18px",
+                fontSize: 22,
+                color: TEXT,
+                lineHeight: 1.85,
+              }}
+            >
+              🔑 <strong style={{ color: GREEN }}>母线概念</strong>：<br />
+              圆柱面由一条平行于 Z 轴的直线（母线，金色）
+              沿圆周运动而扫成
+              <br />
+              <span style={{ color: GREEN }}>
+                — 不是凭空"存在"，而是由运动"生成"的
+              </span>
+            </div>
           </div>
-        </AbsoluteFill>
+        </div>
       )}
 
-      {/* Scene 5: 旋转曲面生成原理 */}
+      {/* ── Scene 5: 旋转曲面（母线 y=√z 绕Z轴旋转）── */}
       {scene === 5 && (
-        <AbsoluteFill
+        <div
           style={{
-            justifyContent: "center",
+            opacity: s5Op,
+            display: "flex",
+            width: "100%",
+            height: "100%",
             alignItems: "center",
-            flexDirection: "column",
-            gap: 20,
-            padding: "0 80px",
           }}
         >
-          <div style={{ color: COLORS.tertiaryCurve, fontSize: 28, opacity: s5Title }}>
-            旋转曲面：曲线 y = f(x) 绕 x 轴旋转
+          <div style={{ flex: 1, display: "flex", justifyContent: "center" }}>
+            <CoordinateSystem3D
+              width={820}
+              height={660}
+              center={[410, 450]}
+              scale={70}
+              xRange={[-2.5, 2.5]}
+              yRange={[-2.5, 2.5]}
+              zRange={[0, 3.5]}
+              rotationX={Math.PI / 6}
+              rotationY={rotY5}
+            >
+              {/* 母线 y=√z（在 xz 平面内，即 y=0），用 ParametricCurve3D */}
+              <ParametricCurve3D
+                x={(_t) => 0}
+                y={(t) => Math.sqrt(t)}
+                z={(t) => t}
+                tMin={0}
+                tMax={3}
+                segments={50}
+                color={GOLD}
+                strokeWidth={3}
+                drawProgress={motherLineProgress}
+                opacity={motherLineProgress > 0 ? 1 : 0}
+              />
+              {/* 旋转曲面：x=√z·cosθ, y=√z·sinθ（即 x²+y²=z）*/}
+              <SurfaceMesh3D
+                x={(u, v) => Math.sqrt(v) * Math.cos(u)}
+                y={(u, v) => Math.sqrt(v) * Math.sin(u)}
+                z={(_u, v) => v}
+                uMin={0}
+                uMax={rotSurfaceUMax}
+                uSteps={16}
+                vMin={0.01}
+                vMax={3}
+                vSteps={10}
+                color={PURPLE}
+                strokeWidth={0.9}
+                opacity={0.55}
+              />
+            </CoordinateSystem3D>
           </div>
-
-          <div style={{ opacity: s5Eq }}>
-            <MathFormula
-              latex="y^2 + z^2 = [f(x)]^2"
-              fontSize={56}
-              color={COLORS.formula}
-            />
-          </div>
-
-          <div style={{ color: COLORS.annotation, fontSize: 21, opacity: s5Eq, textAlign: "center" }}>
-            规律：绕哪根轴，该轴变量不变；
-            其余两变量替换为 <span style={{ color: COLORS.highlight }}>√(u²+v²)</span>
-          </div>
-
-          <CoordinateSystem
-            width={700}
-            height={360}
-            xRange={[-1.5, 3.5]}
-            yRange={[-2.5, 2.5]}
-            opacity={s5CoordOp}
+          <div
+            style={{
+              width: 480,
+              padding: "0 48px 0 0",
+              display: "flex",
+              flexDirection: "column",
+              gap: 20,
+            }}
           >
-            <RotationSurface opacity={s5CoordOp} drawProgress={s5Draw} />
-          </CoordinateSystem>
-
-          <div style={{ opacity: s5Note, color: COLORS.annotation, fontSize: 20 }}>
-            示例：y = √(x+2) 绕 x 轴旋转 → 旋转抛物面  y² + z² = x + 2
+            <div style={{ color: PURPLE, fontSize: 32, fontWeight: "bold" }}>
+              旋转曲面
+            </div>
+            <div style={{ fontSize: 23, color: TEXT, lineHeight: 1.9 }}>
+              母线（金色）：
+              <span
+                style={{ color: GOLD }}
+                dangerouslySetInnerHTML={{ __html: math("y=\\sqrt{z}\\;(x=0)") }}
+              />
+              <br />
+              绕 Z 轴旋转一圈：
+            </div>
+            <div
+              style={{ fontSize: 24, color: FORMULA, textAlign: "center", margin: "6px 0" }}
+              dangerouslySetInnerHTML={{ __html: math("x^2 + y^2 = z", true) }}
+            />
+            <div style={{ fontSize: 22, color: TEXT, lineHeight: 1.8 }}>
+              通式：若母线为{" "}
+              <span dangerouslySetInnerHTML={{ __html: math("y=f(z)") }} />（在 yz 平面），
+              绕 Z 轴旋转得：
+              <div
+                style={{ fontSize: 22, textAlign: "center", margin: "8px 0", color: PURPLE }}
+                dangerouslySetInnerHTML={{ __html: math("x^2+y^2=[f(z)]^2") }}
+              />
+            </div>
+            <div
+              style={{
+                background: "rgba(189,147,249,0.08)",
+                borderRadius: 10,
+                padding: "12px 16px",
+                fontSize: 21,
+                color: TEXT,
+                lineHeight: 1.8,
+              }}
+            >
+              🔑 旋转曲面由母线旋转<strong style={{ color: PURPLE }}>扫成</strong>，
+              动画展示从 0 到 2π 的生成过程
+            </div>
           </div>
-        </AbsoluteFill>
+        </div>
+      )}
+
+      {/* ── Scene 6: 总结 ── */}
+      {scene === 6 && (
+        <div
+          style={{
+            opacity: s6Op,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            height: "100%",
+            gap: 28,
+          }}
+        >
+          <TheoremBox title="空间曲面方程总结" width={1100} opacity={1}>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: 20,
+                padding: "10px 0",
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 20,
+                  fontSize: 24,
+                  color: TEXT,
+                }}
+              >
+                <span style={{ color: ACCENT, minWidth: 90, fontWeight: "bold" }}>一般式：</span>
+                <span dangerouslySetInnerHTML={{ __html: math("F(x,y,z)=0") }} />
+                <span style={{ marginLeft: 12, fontSize: 21, opacity: 0.8 }}>满足方程的点的集合</span>
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 20,
+                  fontSize: 24,
+                  color: TEXT,
+                }}
+              >
+                <span style={{ color: PINK, minWidth: 90, fontWeight: "bold" }}>球面：</span>
+                <span dangerouslySetInnerHTML={{ __html: math("x^2+y^2+z^2=R^2") }} />
+                <span style={{ marginLeft: 12, fontSize: 21, opacity: 0.8 }}>球心原点，半径 R</span>
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 20,
+                  fontSize: 24,
+                  color: TEXT,
+                }}
+              >
+                <span style={{ color: GREEN, minWidth: 90, fontWeight: "bold" }}>柱面：</span>
+                <span dangerouslySetInnerHTML={{ __html: math("x^2+y^2=R^2") }} />
+                <span style={{ marginLeft: 12, fontSize: 21, opacity: 0.8 }}>无 z 项，母线平行 Z 轴</span>
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 20,
+                  fontSize: 24,
+                  color: TEXT,
+                }}
+              >
+                <span style={{ color: PURPLE, minWidth: 90, fontWeight: "bold" }}>旋转面：</span>
+                <span dangerouslySetInnerHTML={{ __html: math("x^2+y^2=[f(z)]^2") }} />
+                <span style={{ marginLeft: 12, fontSize: 21, opacity: 0.8 }}>母线 y=f(z) 绕 Z 轴旋转</span>
+              </div>
+            </div>
+          </TheoremBox>
+          <div
+            style={{
+              fontSize: 26,
+              color: TEXT,
+              textAlign: "center",
+              maxWidth: 900,
+              lineHeight: 1.8,
+            }}
+          >
+            曲面是三维空间中最基本的几何对象，
+            <br />
+            其方程{" "}
+            <span dangerouslySetInnerHTML={{ __html: math("F(x,y,z)=0") }} />{" "}
+            对应三维空间的一个约束
+          </div>
+        </div>
       )}
     </AbsoluteFill>
   );
 };
 
+// Root.tsx 中已有 withWatermark 包裹，此处直接导出原始组件
 export default Sec03Surfaces;

@@ -206,7 +206,7 @@ const Sec06Fourier: React.FC = () => {
           </div>
           <div style={{ opacity: s5Cond2 }}>
             <MathFormula
-              latex="\frac{a_0}{2}+\sum_{n=1}^\infty(a_n\cos nx+b_n\sin nx) = \begin{cases}f(x) & \text{连续点}\\[6pt]\dfrac{f(x^-)+f(x^+)}{2} & \text{间断点}\end{cases}"
+              latex={"\frac{a_0}{2}+\sum_{n=1}^\infty(a_n\cos nx+b_n\sin nx) = \begin{cases}f(x) & \text{连续点}\\[6pt]\dfrac{f(x^-)+f(x^+)}{2} & \text{间断点}\end{cases}"}
               fontSize={28}
               color={COLORS.formula}
             />

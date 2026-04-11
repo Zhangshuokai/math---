@@ -8,13 +8,15 @@
 
 | 章节 | 文件夹名 | 文档链接 | 节数 | 实际总帧数 |
 |------|----------|----------|------|-----------|
-| 第七章：微分方程 | `Ch07_DifferentialEq` | [ch07-differential-equations.md](./ch07-differential-equations.md) | 9 节 | 3,810 帧 |
-| 第八章：空间解析几何与向量代数 | `Ch08_VectorGeometry` | [ch08-vector-geometry.md](./ch08-vector-geometry.md) | 6 节 | 2,550 帧 |
-| 第九章：多元函数微分法及其应用 | `Ch09_MultiVariable` | [ch09-multivariable-calculus.md](./ch09-multivariable-calculus.md) | 8 节 | 3,060 帧 |
-| 第十章：重积分 | `Ch10_MultipleIntegral` | [ch10-multiple-integrals.md](./ch10-multiple-integrals.md) | 4 节 | 2,040 帧 |
-| 第十一章：曲线积分与曲面积分 | `Ch11_LineAndSurface` | [ch11-curve-surface-integrals.md](./ch11-curve-surface-integrals.md) | 7 节 | 3,060 帧 |
-| 第十二章：无穷级数 | `Ch12_Series` | [ch12-infinite-series.md](./ch12-infinite-series.md) | 7 节 | 3,420 帧 |
-| **合计** | — | — | **41 节** | **17,940 帧** |
+| 第七章：微分方程 | `Ch07_DifferentialEq` | [ch07-differential-equations.md](./ch07-differential-equations.md) | 9+3 节 | ~7,140 帧 |
+| 第八章：空间解析几何与向量代数 | `Ch08_VectorGeometry` | [ch08-vector-geometry.md](./ch08-vector-geometry.md) | 6+3 节 | ~5,430 帧 |
+| 第九章：多元函数微分法及其应用 | `Ch09_MultiVariable` | [ch09-multivariable-calculus.md](./ch09-multivariable-calculus.md) | 8+3 节 | ~6,480 帧 |
+| 第十章：重积分 | `Ch10_MultipleIntegral` | [ch10-multiple-integrals.md](./ch10-multiple-integrals.md) | 4+3 节 | ~4,740 帧 |
+| 第十一章：曲线积分与曲面积分 | `Ch11_LineAndSurface` | [ch11-curve-surface-integrals.md](./ch11-curve-surface-integrals.md) | 7+3 节 | ~6,120 帧 |
+| 第十二章：无穷级数 | `Ch12_Series` | [ch12-infinite-series.md](./ch12-infinite-series.md) | 7+3 节 | ~6,120 帧 |
+| **合计** | — | — | **41+18 = 65 节** | **~36,030 帧** |
+
+> 说明：各章"节数"中 `+3` 表示本次新增的"例题节+IM案例节"。
 
 ---
 
@@ -74,7 +76,10 @@ Scene 7: Summary            （60 帧）   — 关键结论小结+淡出
 | 7 | `Ch07_Sec07_Linear2` | [Sec07_Linear2.tsx](../../src/compositions/Ch07_DifferentialEq/Sec07_Linear2.tsx) | 300 | 10s | 高阶线性方程 + 朗斯基行列式 | |
 | 8 | `Ch07_Sec08_ConstCoeff` | [Sec08_ConstCoeff.tsx](../../src/compositions/Ch07_DifferentialEq/Sec08_ConstCoeff.tsx) | 600 | 20s | 常系数齐次线性方程 + 特征根三种情况 + 振荡解动画 | ⭐ |
 | 9 | `Ch07_Sec09_NonHomog` | [Sec09_NonHomog.tsx](../../src/compositions/Ch07_DifferentialEq/Sec09_NonHomog.tsx) | 480 | 16s | 常系数非齐次线性方程 + 待定系数法 | |
-| — | **小计** | — | **3,810** | **127s** | | |
+| 10 | `Ch07-Sec10-Examples` | [Sec10_Examples.tsx](../../src/compositions/Ch07_DifferentialEq/Sec10_Examples.tsx) | 1,530 | 51s | 3 道例题：一阶线性方程 / 高阶降阶 / 弹簧阻尼系统稳态响应 | 📝 例题 |
+| 11 | `Ch07-Sec11-IM-Control` | [Sec11_IM_Control.tsx](../../src/compositions/Ch07_DifferentialEq/Sec11_IM_Control.tsx) | 540 | 18s | RC 电路充放电控制：一阶线性 ODE 在伺服驱动中的应用 | 🏭 IM |
+| 12 | `Ch07-Sec12-IM-Dynamics` | [Sec12_IM_Dynamics.tsx](../../src/compositions/Ch07_DifferentialEq/Sec12_IM_Dynamics.tsx) | 540 | 18s | 机床振动系统建模：二阶 ODE 阻尼比对加工精度影响 | 🏭 IM |
+| — | **小计** | — | **~7,140** | **~238s** | | |
 
 ### 第八章：空间解析几何与向量代数（`Ch08_VectorGeometry`）
 
@@ -86,7 +91,10 @@ Scene 7: Summary            （60 帧）   — 关键结论小结+淡出
 | 13 | `Ch08_Sec04_Curves` | [Sec04_Curves.tsx](../../src/compositions/Ch08_VectorGeometry/Sec04_Curves.tsx) | 300 | 10s | 螺旋线参数方程 + 投影 | |
 | 14 | `Ch08_Sec05_Plane` | [Sec05_Plane.tsx](../../src/compositions/Ch08_VectorGeometry/Sec05_Plane.tsx) | 480 | 16s | 平面点法式推导 + 点到平面距离公式 | |
 | 15 | `Ch08_Sec06_Line` | [Sec06_Line.tsx](../../src/compositions/Ch08_VectorGeometry/Sec06_Line.tsx) | 480 | 16s | 空间直线对称式/参数式 + 线面夹角 | |
-| — | **小计** | — | **2,550** | **85s** | | |
+| 16 | `Ch08-Sec07-Examples` | [Sec07_Examples.tsx](../../src/compositions/Ch08_VectorGeometry/Sec07_Examples.tsx) | 1,620 | 54s | 3 道例题：三点平面方程 / 直线与平面夹角 / 椭球面切平面（含 3D 旋转） | 📝 例题 |
+| 17 | `Ch08-Sec08-IM-RobotArm` | [Sec08_IM_RobotArm.tsx](../../src/compositions/Ch08_VectorGeometry/Sec08_IM_RobotArm.tsx) | 540 | 18s | 工业机械臂正向运动学：齐次变换矩阵 + 向量叉积 | 🏭 IM |
+| 18 | `Ch08-Sec09-IM-CNC` | [Sec09_IM_CNC.tsx](../../src/compositions/Ch08_VectorGeometry/Sec09_IM_CNC.tsx) | 540 | 18s | CNC 五轴加工刀轴矢量控制：法向量 n = t × b | 🏭 IM |
+| — | **小计** | — | **~5,430** | **~181s** | | |
 
 ### 第九章：多元函数微分法及其应用（`Ch09_MultiVariable`）
 
@@ -100,7 +108,10 @@ Scene 7: Summary            （60 帧）   — 关键结论小结+淡出
 | 21 | `Ch09_Sec06_Geometry` | [Sec06_Geometry.tsx](../../src/compositions/Ch09_MultiVariable/Sec06_Geometry.tsx) | 300 | 10s | 曲面切平面与法线 | |
 | 22 | `Ch09_Sec07_Gradient` | [Sec07_Gradient.tsx](../../src/compositions/Ch09_MultiVariable/Sec07_Gradient.tsx) | 540 | 18s | 梯度 + VectorField 向量场动画 + 方向导数 | ⭐ |
 | 23 | `Ch09_Sec08_Extremum` | [Sec08_Extremum.tsx](../../src/compositions/Ch09_MultiVariable/Sec08_Extremum.tsx) | 480 | 16s | 极值必要条件 + Hessian 判别法 + 鞍点等值线图 | |
-| — | **小计** | — | **3,060** | **102s** | | |
+| 24 | `Ch09-Sec09-Examples` | [Sec09_Examples.tsx](../../src/compositions/Ch09_MultiVariable/Sec09_Examples.tsx) | 1,620 | 54s | 3 道例题：三元函数极值 / Lagrange 乘数法球面最值 / 隐函数高阶偏导 | 📝 例题 |
+| 25 | `Ch09-Sec10-IM-Optimization` | [Sec10_IM_Optimization.tsx](../../src/compositions/Ch09_MultiVariable/Sec10_IM_Optimization.tsx) | 540 | 18s | 多目标生产优化：约束条件下 Lagrange 乘数法最大化产量 | 🏭 IM |
+| 26 | `Ch09-Sec11-IM-Sensor` | [Sec11_IM_Sensor.tsx](../../src/compositions/Ch09_MultiVariable/Sec11_IM_Sensor.tsx) | 540 | 18s | 传感器测量误差传播：全微分误差公式定量预测 IMU 精度 | 🏭 IM |
+| — | **小计** | — | **~6,480** | **~216s** | | |
 
 ### 第十章：重积分（`Ch10_MultipleIntegral`）
 
@@ -110,7 +121,10 @@ Scene 7: Summary            （60 帧）   — 关键结论小结+淡出
 | 25 | `Ch10_Sec02_Calc2D` | [Sec02_Calc2D.tsx](../../src/compositions/Ch10_MultipleIntegral/Sec02_Calc2D.tsx) | 600 | 20s | 累次积分扫描线动画 + 极坐标变换 + e^(x²+y²) 例题 | ⭐ |
 | 26 | `Ch10_Sec03_Triple` | [Sec03_Triple.tsx](../../src/compositions/Ch10_MultipleIntegral/Sec03_Triple.tsx) | 480 | 16s | 柱坐标/球坐标变换图示 | |
 | 27 | `Ch10_Sec04_Apps` | [Sec04_Apps.tsx](../../src/compositions/Ch10_MultipleIntegral/Sec04_Apps.tsx) | 480 | 16s | 曲面面积公式 + 质心标记动画 | |
-| — | **小计** | — | **2,040** | **68s** | | |
+| 28 | `Ch10-Sec05-Examples` | [Sec05_Examples.tsx](../../src/compositions/Ch10_MultipleIntegral/Sec05_Examples.tsx) | 1,620 | 54s | 3 道例题：极坐标二重积分 / 球坐标三重积分质心 / 高斯积分推导 | 📝 例题 |
+| 29 | `Ch10-Sec06-IM-Mass` | [Sec06_IM_Mass.tsx](../../src/compositions/Ch10_MultipleIntegral/Sec06_IM_Mass.tsx) | 540 | 18s | 旋转零件极惯性矩：极坐标积分计算飞轮截面转动惯量 | 🏭 IM |
+| 30 | `Ch10-Sec07-IM-CNC` | [Sec07_IM_CNC.tsx](../../src/compositions/Ch10_MultipleIntegral/Sec07_IM_CNC.tsx) | 540 | 18s | 铸件不规则体积估算：三重积分数值积分网格密度动画 | 🏭 IM |
+| — | **小计** | — | **~4,740** | **~158s** | | |
 
 ### 第十一章：曲线积分与曲面积分（`Ch11_LineAndSurface`）
 
@@ -123,7 +137,10 @@ Scene 7: Summary            （60 帧）   — 关键结论小结+淡出
 | 32 | `Ch11_Sec05_Surface2` | [Sec05_Surface2.tsx](../../src/compositions/Ch11_LineAndSurface/Sec05_Surface2.tsx) | 300 | 10s | 第二类曲面积分流量 | |
 | 33 | `Ch11_Sec06_Gauss` | [Sec06_Gauss.tsx](../../src/compositions/Ch11_LineAndSurface/Sec06_Gauss.tsx) | 480 | 16s | 高斯公式 + 散度物理意义 | |
 | 34 | `Ch11_Sec07_Stokes` | [Sec07_Stokes.tsx](../../src/compositions/Ch11_LineAndSurface/Sec07_Stokes.tsx) | 480 | 16s | 斯托克斯公式 + 旋度 | |
-| — | **小计** | — | **3,060** | **102s** | | |
+| 35 | `Ch11-Sec08-Examples` | [Sec08_Examples.tsx](../../src/compositions/Ch11_LineAndSurface/Sec08_Examples.tsx) | 1,620 | 54s | 3 道例题：螺旋线弧长积分 / 格林公式椭圆曲线积分 / 高斯公式球面通量 | 📝 例题 |
+| 36 | `Ch11-Sec09-IM-Flow` | [Sec09_IM_Flow.tsx](../../src/compositions/Ch11_LineAndSurface/Sec09_IM_Flow.tsx) | 540 | 18s | 管道流量场分析：曲线积分计算液压管道截面流量 | 🏭 IM |
+| 37 | `Ch11-Sec10-IM-Field` | [Sec10_IM_Field.tsx](../../src/compositions/Ch11_LineAndSurface/Sec10_IM_Field.tsx) | 540 | 18s | 电机线圈电磁通量：曲面积分计算定子绕组磁通量 | 🏭 IM |
+| — | **小计** | — | **~6,120** | **~204s** | | |
 
 ### 第十二章：无穷级数（`Ch12_Series`）
 
@@ -136,7 +153,10 @@ Scene 7: Summary            （60 帧）   — 关键结论小结+淡出
 | 39 | `Ch12_Sec05_Apps` | [Sec05_Apps.tsx](../../src/compositions/Ch12_Series/Sec05_Apps.tsx) | 300 | 10s | 幂级数近似计算 + 求极限 | |
 | 40 | `Ch12_Sec06_Fourier` | [Sec06_Fourier.tsx](../../src/compositions/Ch12_Series/Sec06_Fourier.tsx) | 600 | 20s | 傅里叶级数方波逼近动画（1→21项）+ 吉布斯现象 | 🎬 |
 | 41 | `Ch12_Sec07_Fourier2` | [Sec07_Fourier2.tsx](../../src/compositions/Ch12_Series/Sec07_Fourier2.tsx) | 480 | 16s | 奇/偶延拓正弦/余弦级数 | |
-| — | **小计** | — | **3,420** | **114s** | | |
+| 42 | `Ch12-Sec08-Examples` | [Sec08_Examples.tsx](../../src/compositions/Ch12_Series/Sec08_Examples.tsx) | 1,440 | 48s | 3 道例题：幂级数收敛域与和函数 / x² 傅里叶展开 / 泰勒展开求极限与数值积分 | 📝 例题 |
+| 43 | `Ch12-Sec09-IM-Signal` | [Sec09_IM_Signal.tsx](../../src/compositions/Ch12_Series/Sec09_IM_Signal.tsx) | 540 | 18s | 工业信号傅里叶滤波：振动传感器去噪频谱分析动画 | 🏭 IM |
+| 44 | `Ch12-Sec10-IM-Approx` | [Sec10_IM_Approx.tsx](../../src/compositions/Ch12_Series/Sec10_IM_Approx.tsx) | 540 | 18s | 数控插补泰勒近似：CNC 圆弧插补精度与截断阶数权衡 | 🏭 IM |
+| — | **小计** | — | **~6,120** | **~204s** | | |
 
 ---
 
@@ -144,12 +164,15 @@ Scene 7: Summary            （60 帧）   — 关键结论小结+淡出
 
 | 统计项 | 数值 |
 |--------|------|
-| 已注册 Composition 总数 | **41 个**（Root.tsx 中实装） |
-| 完整动画（≥450 帧） | **26 个** |
-| 基础动画（300 帧） | **15 个** |
-| 总动画帧数 | **17,940 帧** |
-| 当前动画总时长 | **598 秒（约 10 分钟）** |
-| 预计最终教学视频内容 | **~350 分钟**（含旁白/习题扩展） |
+| 已注册 Composition 总数 | **65 个**（Root.tsx 中实装） |
+| 核心知识节 | **41 个**（全部完整动画 ≥ 450 帧） |
+| 例题节（每章 3 道） | **6 个**（18 道精选例题，含详解型 6 阶段场景） |
+| 智能制造应用案例 | **12 个**（每章 2 个，540 帧 / 18s） |
+| 总动画帧数 | **~36,030 帧** |
+| 当前动画总时长 | **~1,201 秒（约 20 分钟）** |
+| TypeScript 编译错误 | **0** |
+
+> 图例：📝 = 例题节（详解型，1440~1620 帧）；🏭 = 智能制造应用案例（540 帧）
 
 ---
 

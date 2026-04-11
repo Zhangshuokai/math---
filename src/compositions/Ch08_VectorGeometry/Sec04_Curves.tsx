@@ -111,7 +111,7 @@ const Sec04Curves: React.FC = () => {
                 空间曲线的参数方程
               </div>
               <MathFormula
-                latex="\begin{cases} x = x(t) \\ y = y(t) \\ z = z(t) \end{cases}"
+                latex={"\begin{cases} x = x(t) \\ y = y(t) \\ z = z(t) \end{cases}"}
                 fontSize={40}
                 color={COLORS.formula}
               />
@@ -122,7 +122,7 @@ const Sec04Curves: React.FC = () => {
                 螺旋线（helix）参数方程
               </div>
               <MathFormula
-                latex="\begin{cases} x = a\cos\theta \\ y = a\sin\theta \\ z = b\theta \end{cases}"
+                latex={"\begin{cases} x = a\cos\theta \\ y = a\sin\theta \\ z = b\theta \end{cases}"}
                 fontSize={38}
                 color={COLORS.formula}
               />
@@ -137,7 +137,7 @@ const Sec04Curves: React.FC = () => {
                 一般方程（两曲面交线）
               </div>
               <MathFormula
-                latex="\begin{cases} F(x,y,z) = 0 \\ G(x,y,z) = 0 \end{cases}"
+                latex={"\begin{cases} F(x,y,z) = 0 \\ G(x,y,z) = 0 \end{cases}"}
                 fontSize={38}
                 color={COLORS.formula}
               />

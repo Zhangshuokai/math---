@@ -136,7 +136,7 @@ const Sec06Line: React.FC = () => {
 
           <div style={{ opacity: s3Param }}>
             <MathFormula
-              latex="\begin{cases} x = x_0 + lt \\ y = y_0 + mt \\ z = z_0 + nt \end{cases} \quad (t \in \mathbb{R})"
+              latex={"\begin{cases} x = x_0 + lt \\ y = y_0 + mt \\ z = z_0 + nt \end{cases} \quad (t \in \mathbb{R})"}
               fontSize={40}
               color={COLORS.formula}
             />
@@ -154,7 +154,7 @@ const Sec06Line: React.FC = () => {
 
           <div style={{ opacity: s3TwoPlaneEq }}>
             <MathFormula
-              latex="L: \begin{cases} A_1x+B_1y+C_1z+D_1=0 \\ A_2x+B_2y+C_2z+D_2=0 \end{cases}"
+              latex={"L: \begin{cases} A_1x+B_1y+C_1z+D_1=0 \\ A_2x+B_2y+C_2z+D_2=0 \end{cases}"}
               fontSize={36}
               color={COLORS.formula}
             />

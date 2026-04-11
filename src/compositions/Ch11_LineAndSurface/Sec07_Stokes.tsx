@@ -90,7 +90,7 @@ const Sec07Stokes: React.FC = () => {
           <StokesDemo opacity={s2DiagOp} />
           <div style={{ opacity: s2Formula }}>
             <MathFormula
-              latex="\oint_L P\,\mathrm{d}x+Q\,\mathrm{d}y+R\,\mathrm{d}z = \iint_\Sigma \begin{vmatrix}\mathrm{d}y\mathrm{d}z & \mathrm{d}z\mathrm{d}x & \mathrm{d}x\mathrm{d}y\\\frac{\partial}{\partial x}&\frac{\partial}{\partial y}&\frac{\partial}{\partial z}\\P&Q&R\end{vmatrix}"
+              latex={"\oint_L P\,\mathrm{d}x+Q\,\mathrm{d}y+R\,\mathrm{d}z = \iint_\Sigma \begin{vmatrix}\mathrm{d}y\mathrm{d}z & \mathrm{d}z\mathrm{d}x & \mathrm{d}x\mathrm{d}y\\\frac{\partial}{\partial x}&\frac{\partial}{\partial y}&\frac{\partial}{\partial z}\\P&Q&R\end{vmatrix}"}
               fontSize={24}
               color={COLORS.formula}
             />
@@ -131,7 +131,7 @@ const Sec07Stokes: React.FC = () => {
           <div style={{ color: COLORS.secondaryCurve, fontSize: 26, opacity: s4Title }}>旋度的物理意义</div>
           <div style={{ opacity: s4Formula }}>
             <MathFormula
-              latex="\nabla\times\vec{F} = \begin{vmatrix}\vec{i}&\vec{j}&\vec{k}\\\frac{\partial}{\partial x}&\frac{\partial}{\partial y}&\frac{\partial}{\partial z}\\P&Q&R\end{vmatrix}"
+              latex={"\nabla\times\vec{F} = \begin{vmatrix}\vec{i}&\vec{j}&\vec{k}\\\frac{\partial}{\partial x}&\frac{\partial}{\partial y}&\frac{\partial}{\partial z}\\P&Q&R\end{vmatrix}"}
               fontSize={28}
               color={COLORS.formula}
             />

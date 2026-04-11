@@ -11,6 +11,33 @@ import Ch10Index from "./compositions/Ch10_MultipleIntegral/index";
 import Ch11Index from "./compositions/Ch11_LineAndSurface/index";
 import Ch12Index from "./compositions/Ch12_Series/index";
 
+// Ch07 新增：IM 组件（已在文件内部包裹 withWatermark，直接 import 默认导出）
+import Ch07IM01Control from "./compositions/Ch07_DifferentialEq/Sec11_IM_Control";
+import Ch07IM02Dynamics from "./compositions/Ch07_DifferentialEq/Sec12_IM_Dynamics";
+
+// Ch08 新增：IM 组件
+import Ch08IM01RobotArm from "./compositions/Ch08_VectorGeometry/Sec08_IM_RobotArm";
+import Ch08IM02CNC from "./compositions/Ch08_VectorGeometry/Sec09_IM_CNC";
+
+// Ch09 新增：IM 组件
+import Ch09IM01Optimization from "./compositions/Ch09_MultiVariable/Sec10_IM_Optimization";
+import Ch09IM02Sensor from "./compositions/Ch09_MultiVariable/Sec11_IM_Sensor";
+
+// Ch10 新增：Examples + IM 组件
+import Ch10Sec05Examples from "./compositions/Ch10_MultipleIntegral/Sec05_Examples";
+import Ch10IM01Mass from "./compositions/Ch10_MultipleIntegral/Sec06_IM_Mass";
+import Ch10IM02CNC from "./compositions/Ch10_MultipleIntegral/Sec07_IM_CNC";
+
+// Ch11 新增：Examples + IM 组件
+import Ch11Sec08Examples from "./compositions/Ch11_LineAndSurface/Sec08_Examples";
+import Ch11IM01Flow from "./compositions/Ch11_LineAndSurface/Sec09_IM_Flow";
+import Ch11IM02Field from "./compositions/Ch11_LineAndSurface/Sec10_IM_Field";
+
+// Ch12 新增：Examples + IM 组件
+import Ch12Sec08Examples from "./compositions/Ch12_Series/Sec08_Examples";
+import Ch12IM01Signal from "./compositions/Ch12_Series/Sec09_IM_Signal";
+import Ch12IM02Approx from "./compositions/Ch12_Series/Sec10_IM_Approx";
+
 // 第七章实装组件
 import Sec01Intro from "./compositions/Ch07_DifferentialEq/Sec01_Intro";
 import Sec02Separable from "./compositions/Ch07_DifferentialEq/Sec02_Separable";
@@ -161,7 +188,11 @@ export const RemotionRoot: React.FC = () => {
         <Composition id="Ch07-Sec09-NonHomog" component={WSec09NonHomog}
           durationInFrames={480} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
         <Composition id="Ch07-Sec10-Examples" component={WSec10Examples}
-          durationInFrames={1440} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+          durationInFrames={1620} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+        <Composition id="Ch07-IM01-Control" component={Ch07IM01Control}
+          durationInFrames={540} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+        <Composition id="Ch07-IM02-Dynamics" component={Ch07IM02Dynamics}
+          durationInFrames={540} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
       </Folder>
 
       {/* 第八章：空间解析几何与向量代数 */}
@@ -169,11 +200,11 @@ export const RemotionRoot: React.FC = () => {
         <Composition id="Ch08-Index" component={WCh08Index}
           durationInFrames={150} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
         <Composition id="Ch08-Sec01-Vectors" component={WCh08Sec01Vectors}
-          durationInFrames={450} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+          durationInFrames={510} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
         <Composition id="Ch08-Sec02-Products" component={WCh08Sec02Products}
           durationInFrames={540} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
         <Composition id="Ch08-Sec03-Surfaces" component={WCh08Sec03Surfaces}
-          durationInFrames={480} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+          durationInFrames={540} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
         <Composition id="Ch08-Sec04-Curves" component={WCh08Sec04Curves}
           durationInFrames={480} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
         <Composition id="Ch08-Sec05-Plane" component={WCh08Sec05Plane}
@@ -181,7 +212,11 @@ export const RemotionRoot: React.FC = () => {
         <Composition id="Ch08-Sec06-Line" component={WCh08Sec06Line}
           durationInFrames={480} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
         <Composition id="Ch08-Sec07-Examples" component={WCh08Sec07Examples}
-          durationInFrames={1440} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+          durationInFrames={1620} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+        <Composition id="Ch08-IM01-RobotArm" component={Ch08IM01RobotArm}
+          durationInFrames={540} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+        <Composition id="Ch08-IM02-CNC" component={Ch08IM02CNC}
+          durationInFrames={540} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
       </Folder>
 
       {/* 第九章：多元函数微分法及其应用 */}
@@ -205,7 +240,11 @@ export const RemotionRoot: React.FC = () => {
         <Composition id="Ch09-Sec08-Extremum" component={WCh09Sec08Extremum}
           durationInFrames={480} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
         <Composition id="Ch09-Sec09-Examples" component={WCh09Sec09Examples}
-          durationInFrames={1440} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+          durationInFrames={1620} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+        <Composition id="Ch09-IM01-Optimization" component={Ch09IM01Optimization}
+          durationInFrames={540} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+        <Composition id="Ch09-IM02-Sensor" component={Ch09IM02Sensor}
+          durationInFrames={540} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
       </Folder>
 
       {/* 第十章：重积分 */}
@@ -217,9 +256,15 @@ export const RemotionRoot: React.FC = () => {
         <Composition id="Ch10-Sec02-Calc2D" component={WCh10Sec02Calc2D}
           durationInFrames={600} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
         <Composition id="Ch10-Sec03-Triple" component={WCh10Sec03Triple}
-          durationInFrames={480} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+          durationInFrames={540} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
         <Composition id="Ch10-Sec04-Apps" component={WCh10Sec04Apps}
           durationInFrames={480} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+        <Composition id="Ch10-Sec05-Examples" component={Ch10Sec05Examples}
+          durationInFrames={1620} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+        <Composition id="Ch10-IM01-Mass" component={Ch10IM01Mass}
+          durationInFrames={540} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+        <Composition id="Ch10-IM02-CNC" component={Ch10IM02CNC}
+          durationInFrames={540} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
       </Folder>
 
       {/* 第十一章：曲线积分与曲面积分 */}
@@ -233,13 +278,19 @@ export const RemotionRoot: React.FC = () => {
         <Composition id="Ch11-Sec03-Green" component={WCh11Sec03Green}
           durationInFrames={540} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
         <Composition id="Ch11-Sec04-Surface1" component={WCh11Sec04Surface1}
-          durationInFrames={480} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+          durationInFrames={540} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
         <Composition id="Ch11-Sec05-Surface2" component={WCh11Sec05Surface2}
           durationInFrames={480} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
         <Composition id="Ch11-Sec06-Gauss" component={WCh11Sec06Gauss}
           durationInFrames={480} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
         <Composition id="Ch11-Sec07-Stokes" component={WCh11Sec07Stokes}
           durationInFrames={480} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+        <Composition id="Ch11-Sec08-Examples" component={Ch11Sec08Examples}
+          durationInFrames={1620} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+        <Composition id="Ch11-IM01-Flow" component={Ch11IM01Flow}
+          durationInFrames={540} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+        <Composition id="Ch11-IM02-Field" component={Ch11IM02Field}
+          durationInFrames={540} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
       </Folder>
 
       {/* 第十二章：无穷级数 */}
@@ -260,6 +311,12 @@ export const RemotionRoot: React.FC = () => {
           durationInFrames={600} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
         <Composition id="Ch12-Sec07-Fourier2" component={WCh12Sec07Fourier2}
           durationInFrames={480} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+        <Composition id="Ch12-Sec08-Examples" component={Ch12Sec08Examples}
+          durationInFrames={1620} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+        <Composition id="Ch12-IM01-Signal" component={Ch12IM01Signal}
+          durationInFrames={540} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+        <Composition id="Ch12-IM02-Approx" component={Ch12IM02Approx}
+          durationInFrames={540} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
       </Folder>
     </>
   );

@@ -850,3 +850,63 @@ npm install --save-dev jest @types/jest ts-jest
 > 注：第八章 Sec04_Curves 仍为基础动画（300帧），为本次会话后唯一遗留的基础节。
 
 *文档更新时间：2026-04-08 | 项目版本：v1.1.0*
+
+---
+
+## 最近更新（2026-04-10）
+
+> 详细内容请参阅：[开发会话总结文档（2026-04-10）](./SESSION_SUMMARY_20260410.md)
+
+### 本次升级核心数据
+
+| 指标 | 升级前 | 升级后 | 变化 |
+|------|--------|--------|------|
+| Composition 总数 | 50 | **65** | +15 新增 / 3 帧数更新 |
+| 例题节 | 3（Ch07/08/09 原有版本） | **6**（全章覆盖，重建 3 节） | 每章均有精选例题节 |
+| 精选例题总数 | — | **18 道**（每章 3 道） | 新增 |
+| 智能制造应用案例 | 0 | **12 个**（每章 2 个） | 全新类别 |
+| 总动画帧数 | ~20,100 | **~36,030** | +15,930 帧 |
+| 总动画时长 | ~670s（约 11 分钟） | **~1,201s（约 20 分钟）** | +531s |
+| TypeScript 编译错误 | 0 | **0** | 持续零错误 |
+
+### 本次新增内容摘要
+
+#### 1. 精选例题节（6 节，共 18 道例题）
+
+每道例题采用详解型 6 阶段标准场景（540 帧 / 例题），包含：题目展示 → 审题分析 → 分步推导+配图 → 关键结论 → 3D 可视化旋转 → 总结。
+
+| 例题节 | 文件 | 帧数 | 三道例题主题 |
+|--------|------|------|------------|
+| Ch07 微分方程例题 | [`Sec10_Examples.tsx`](../src/compositions/Ch07_DifferentialEq/Sec10_Examples.tsx) | 1,530 | 一阶线性方程 / 高阶降阶 / 弹簧阻尼系统 |
+| Ch08 向量几何例题 | [`Sec07_Examples.tsx`](../src/compositions/Ch08_VectorGeometry/Sec07_Examples.tsx) | 1,620 | 三点平面方程 / 直线平面夹角 / 椭球面切平面 |
+| Ch09 多元函数例题 | [`Sec09_Examples.tsx`](../src/compositions/Ch09_MultiVariable/Sec09_Examples.tsx) | 1,620 | 三元极值鞍点 / Lagrange 乘数法 / 隐函数高阶偏导 |
+| Ch10 重积分例题 | [`Sec05_Examples.tsx`](../src/compositions/Ch10_MultipleIntegral/Sec05_Examples.tsx) | 1,620 | 极坐标二重积分 / 球坐标质心 / 高斯积分推导 |
+| Ch11 曲线曲面例题 | [`Sec08_Examples.tsx`](../src/compositions/Ch11_LineAndSurface/Sec08_Examples.tsx) | 1,620 | 螺旋线弧长 / 格林公式椭圆 / 高斯公式球面通量 |
+| Ch12 无穷级数例题 | [`Sec08_Examples.tsx`](../src/compositions/Ch12_Series/Sec08_Examples.tsx) | 1,440 | 幂级数和函数 / 傅里叶展开 / 泰勒展开求极限 |
+
+#### 2. 智能制造应用案例（12 个，每章 2 个）
+
+将高等数学知识映射到工业制造场景，每个案例 540 帧 / 18 秒：
+
+| 章节 | IM 案例 1 | IM 案例 2 |
+|------|----------|----------|
+| Ch07 微分方程 | RC 电路充放电控制（[`Sec11_IM_Control.tsx`](../src/compositions/Ch07_DifferentialEq/Sec11_IM_Control.tsx)） | 机床振动系统建模（[`Sec12_IM_Dynamics.tsx`](../src/compositions/Ch07_DifferentialEq/Sec12_IM_Dynamics.tsx)） |
+| Ch08 向量几何 | 工业机械臂正向运动学（[`Sec08_IM_RobotArm.tsx`](../src/compositions/Ch08_VectorGeometry/Sec08_IM_RobotArm.tsx)） | CNC 五轴刀轴矢量控制（[`Sec09_IM_CNC.tsx`](../src/compositions/Ch08_VectorGeometry/Sec09_IM_CNC.tsx)） |
+| Ch09 多元函数 | 多目标生产优化（[`Sec10_IM_Optimization.tsx`](../src/compositions/Ch09_MultiVariable/Sec10_IM_Optimization.tsx)） | 传感器误差传播分析（[`Sec11_IM_Sensor.tsx`](../src/compositions/Ch09_MultiVariable/Sec11_IM_Sensor.tsx)） |
+| Ch10 重积分 | 旋转零件极惯性矩（[`Sec06_IM_Mass.tsx`](../src/compositions/Ch10_MultipleIntegral/Sec06_IM_Mass.tsx)） | 铸件不规则体积估算（[`Sec07_IM_CNC.tsx`](../src/compositions/Ch10_MultipleIntegral/Sec07_IM_CNC.tsx)） |
+| Ch11 曲线曲面 | 管道流量场分析（[`Sec09_IM_Flow.tsx`](../src/compositions/Ch11_LineAndSurface/Sec09_IM_Flow.tsx)） | 电机线圈电磁通量（[`Sec10_IM_Field.tsx`](../src/compositions/Ch11_LineAndSurface/Sec10_IM_Field.tsx)） |
+| Ch12 无穷级数 | 工业信号傅里叶滤波（[`Sec09_IM_Signal.tsx`](../src/compositions/Ch12_Series/Sec09_IM_Signal.tsx)） | 数控插补泰勒近似（[`Sec10_IM_Approx.tsx`](../src/compositions/Ch12_Series/Sec10_IM_Approx.tsx)） |
+
+### 当前各章完成度
+
+| 章节 | 核心知识节 | 例题节 | IM 案例 | 总帧数 | 时长 |
+|------|---------|--------|--------|-------|------|
+| 第七章：微分方程 | 9 节 | 1 节 (3 题) | 2 个 | ~7,140 | ~238s |
+| 第八章：空间解析几何 | 6 节 | 1 节 (3 题) | 2 个 | ~5,430 | ~181s |
+| 第九章：多元函数微分 | 8 节 | 1 节 (3 题) | 2 个 | ~6,480 | ~216s |
+| 第十章：重积分 | 4 节 | 1 节 (3 题) | 2 个 | ~4,740 | ~158s |
+| 第十一章：曲线与曲面积分 | 7 节 | 1 节 (3 题) | 2 个 | ~6,120 | ~204s |
+| 第十二章：无穷级数 | 7 节 | 1 节 (3 题) | 2 个 | ~6,120 | ~204s |
+| **合计** | **41 节** | **6 节 / 18 题** | **12 个** | **~36,030** | **~1,201s** |
+
+*文档更新时间：2026-04-10 | 项目版本：v1.3.0*

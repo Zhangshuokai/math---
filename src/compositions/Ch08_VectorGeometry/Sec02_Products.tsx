@@ -210,7 +210,7 @@ const Sec02Products: React.FC = () => {
 
           <div style={{ opacity: crossDet }}>
             <MathFormula
-              latex="\vec{a}\times\vec{b} = \begin{vmatrix}\vec{i} & \vec{j} & \vec{k}\\ a_1 & a_2 & a_3\\ b_1 & b_2 & b_3\end{vmatrix}"
+              latex={"\vec{a}\times\vec{b} = \begin{vmatrix}\vec{i} & \vec{j} & \vec{k}\\ a_1 & a_2 & a_3\\ b_1 & b_2 & b_3\end{vmatrix}"}
               fontSize={44}
               color={COLORS.formula}
             />
@@ -323,7 +323,7 @@ const Sec02Products: React.FC = () => {
 
           <div style={{ opacity: mixedFormula }}>
             <MathFormula
-              latex="[\,\vec{a}\;\vec{b}\;\vec{c}\,] = \vec{a}\cdot(\vec{b}\times\vec{c}) = \begin{vmatrix}a_1 & a_2 & a_3\\ b_1 & b_2 & b_3\\ c_1 & c_2 & c_3\end{vmatrix}"
+              latex={"[\,\vec{a}\;\vec{b}\;\vec{c}\,] = \vec{a}\cdot(\vec{b}\times\vec{c}) = \begin{vmatrix}a_1 & a_2 & a_3\\ b_1 & b_2 & b_3\\ c_1 & c_2 & c_3\end{vmatrix}"}
               fontSize={38}
               color={COLORS.formula}
             />
