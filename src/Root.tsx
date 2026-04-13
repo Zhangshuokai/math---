@@ -170,7 +170,7 @@ export const RemotionRoot: React.FC = () => {
         <Composition id="Ch07-Index" component={WCh07Index}
           durationInFrames={150} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
         <Composition id="Ch07-Sec01-Intro" component={WSec01Intro}
-          durationInFrames={450} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+          durationInFrames={480} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
         <Composition id="Ch07-Sec02-Separable" component={WSec02Separable}
           durationInFrames={540} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
         <Composition id="Ch07-Sec03-Homogeneous" component={WSec03Homogeneous}
@@ -178,9 +178,9 @@ export const RemotionRoot: React.FC = () => {
         <Composition id="Ch07-Sec04-Linear" component={WSec04Linear}
           durationInFrames={540} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
         <Composition id="Ch07-Sec05-Exact" component={WSec05Exact}
-          durationInFrames={480} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+          durationInFrames={540} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
         <Composition id="Ch07-Sec06-HighOrder" component={WSec06HighOrder}
-          durationInFrames={480} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+          durationInFrames={540} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
         <Composition id="Ch07-Sec07-Linear2" component={WSec07Linear2}
           durationInFrames={480} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
         <Composition id="Ch07-Sec08-ConstCoeff" component={WSec08ConstCoeff}
@@ -200,17 +200,17 @@ export const RemotionRoot: React.FC = () => {
         <Composition id="Ch08-Index" component={WCh08Index}
           durationInFrames={150} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
         <Composition id="Ch08-Sec01-Vectors" component={WCh08Sec01Vectors}
-          durationInFrames={510} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+          durationInFrames={600} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
         <Composition id="Ch08-Sec02-Products" component={WCh08Sec02Products}
           durationInFrames={540} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
         <Composition id="Ch08-Sec03-Surfaces" component={WCh08Sec03Surfaces}
-          durationInFrames={540} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+          durationInFrames={600} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
         <Composition id="Ch08-Sec04-Curves" component={WCh08Sec04Curves}
-          durationInFrames={480} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+          durationInFrames={540} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
         <Composition id="Ch08-Sec05-Plane" component={WCh08Sec05Plane}
-          durationInFrames={480} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+          durationInFrames={360} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
         <Composition id="Ch08-Sec06-Line" component={WCh08Sec06Line}
-          durationInFrames={480} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+          durationInFrames={360} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
         <Composition id="Ch08-Sec07-Examples" component={WCh08Sec07Examples}
           durationInFrames={1620} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
         <Composition id="Ch08-IM01-RobotArm" component={Ch08IM01RobotArm}
@@ -234,7 +234,7 @@ export const RemotionRoot: React.FC = () => {
         <Composition id="Ch09-Sec05-Implicit" component={WCh09Sec05Implicit}
           durationInFrames={480} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
         <Composition id="Ch09-Sec06-Geometry" component={WCh09Sec06Geometry}
-          durationInFrames={480} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+          durationInFrames={540} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
         <Composition id="Ch09-Sec07-Gradient" component={WCh09Sec07Gradient}
           durationInFrames={540} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
         <Composition id="Ch09-Sec08-Extremum" component={WCh09Sec08Extremum}
@@ -252,13 +252,13 @@ export const RemotionRoot: React.FC = () => {
         <Composition id="Ch10-Index" component={WCh10Index}
           durationInFrames={150} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
         <Composition id="Ch10-Sec01-Concept" component={WCh10Sec01Concept}
-          durationInFrames={480} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+          durationInFrames={360} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
         <Composition id="Ch10-Sec02-Calc2D" component={WCh10Sec02Calc2D}
           durationInFrames={600} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
         <Composition id="Ch10-Sec03-Triple" component={WCh10Sec03Triple}
           durationInFrames={540} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
         <Composition id="Ch10-Sec04-Apps" component={WCh10Sec04Apps}
-          durationInFrames={480} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+          durationInFrames={360} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
         <Composition id="Ch10-Sec05-Examples" component={Ch10Sec05Examples}
           durationInFrames={1620} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
         <Composition id="Ch10-IM01-Mass" component={Ch10IM01Mass}
@@ -272,7 +272,7 @@ export const RemotionRoot: React.FC = () => {
         <Composition id="Ch11-Index" component={WCh11Index}
           durationInFrames={150} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
         <Composition id="Ch11-Sec01-Line1" component={WCh11Sec01Line1}
-          durationInFrames={480} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+          durationInFrames={360} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
         <Composition id="Ch11-Sec02-Line2" component={WCh11Sec02Line2}
           durationInFrames={480} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
         <Composition id="Ch11-Sec03-Green" component={WCh11Sec03Green}
@@ -282,9 +282,9 @@ export const RemotionRoot: React.FC = () => {
         <Composition id="Ch11-Sec05-Surface2" component={WCh11Sec05Surface2}
           durationInFrames={480} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
         <Composition id="Ch11-Sec06-Gauss" component={WCh11Sec06Gauss}
-          durationInFrames={480} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+          durationInFrames={360} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
         <Composition id="Ch11-Sec07-Stokes" component={WCh11Sec07Stokes}
-          durationInFrames={480} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+          durationInFrames={360} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
         <Composition id="Ch11-Sec08-Examples" component={Ch11Sec08Examples}
           durationInFrames={1620} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
         <Composition id="Ch11-IM01-Flow" component={Ch11IM01Flow}
@@ -298,11 +298,11 @@ export const RemotionRoot: React.FC = () => {
         <Composition id="Ch12-Index" component={WCh12Index}
           durationInFrames={150} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
         <Composition id="Ch12-Sec01-Concept" component={WCh12Sec01Concept}
-          durationInFrames={480} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+          durationInFrames={360} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
         <Composition id="Ch12-Sec02-Tests" component={WCh12Sec02Tests}
-          durationInFrames={540} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+          durationInFrames={420} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
         <Composition id="Ch12-Sec03-Power" component={WCh12Sec03Power}
-          durationInFrames={480} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+          durationInFrames={360} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
         <Composition id="Ch12-Sec04-Taylor" component={WCh12Sec04Taylor}
           durationInFrames={540} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
         <Composition id="Ch12-Sec05-Apps" component={WCh12Sec05Apps}
@@ -310,7 +310,7 @@ export const RemotionRoot: React.FC = () => {
         <Composition id="Ch12-Sec06-Fourier" component={WCh12Sec06Fourier}
           durationInFrames={600} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
         <Composition id="Ch12-Sec07-Fourier2" component={WCh12Sec07Fourier2}
-          durationInFrames={480} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
+          durationInFrames={420} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
         <Composition id="Ch12-Sec08-Examples" component={Ch12Sec08Examples}
           durationInFrames={1620} fps={VIDEO_CONFIG.fps} width={VIDEO_CONFIG.width} height={VIDEO_CONFIG.height} />
         <Composition id="Ch12-IM01-Signal" component={Ch12IM01Signal}
