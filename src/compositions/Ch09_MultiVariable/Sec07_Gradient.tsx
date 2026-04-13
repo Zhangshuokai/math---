@@ -288,7 +288,7 @@ const Sec07Gradient: React.FC = () => {
             backgroundColor: "rgba(255,121,198,0.08)",
           }}>
             <MathFormula
-              latex={"\begin{cases} f_x = \lambda g_x \\ f_y = \lambda g_y \\ g(x,y) = 0 \end{cases}"}
+              latex={String.raw`\begin{cases} f_x = \lambda g_x \\ f_y = \lambda g_y \\ g(x,y) = 0 \end{cases}`}
               fontSize={40}
               color={COLORS.formula}
             />
